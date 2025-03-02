@@ -1,7 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>สร้างกิจกรรม</title>
+
+
 <style>
   body {
     font-family: Arial, sans-serif;
@@ -147,7 +145,6 @@
     background-color: #f1f1f1;
   }
 </style>
-</head>
 <body>
 
 
@@ -155,7 +152,7 @@
 <div class="container" style="margin-top: 60px;">
   <div class="left-panel">
     <div class="image-upload-box">
-      <img src="your-image.png" alt="Upload Image"> 
+      <img src="your-image.png" alt="Upload Image" > 
     </div>
     <button class="button" type="submit">สร้างกิจกรรม</button>
     <button class="button">ย้อนกลับ</button>
@@ -164,7 +161,7 @@
     <form action="/submit-activity" method="post">
       <div class="form-group">
         <label for="activityName">ชื่อกิจกรรม</label>
-        <input type="text" id="activityName" name="activityName" placeholder="ตั้งชื่อกิจกรรมของคุณ">
+        <input type="text" id="activityName" name="activityName" placeholder="ตั้งชื่อกิจกรรมของคุณ" >
       </div>
       <div class="form-group">
         <label for="activityDetails">รายละเอียดกิจกรรม</label>

@@ -1,14 +1,14 @@
 <?php
 
 function getAllEvents() {
-    global $conn;
+    $conn = getConnection();
     $sql = "SELECT * FROM event";
     $result = $conn->query($sql);
     return $result->fetch_all(MYSQLI_ASSOC);
 }
 
 function getEventById($eid) {
-    global $conn;
+    $conn = getConnection();
     $sql = "SELECT * FROM event WHERE eid = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $eid);
@@ -18,7 +18,7 @@ function getEventById($eid) {
 }
 
 function createEvent($uid, $eventname, $max_participants, $description, $imageurl, $statusevent) {
-    global $conn;
+    $conn = getConnection();
     $sql = "INSERT INTO event (uid, createdate, eventname, max_participants, description, imageurl, statusevent) 
             VALUES (?, NOW(), ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
@@ -27,7 +27,7 @@ function createEvent($uid, $eventname, $max_participants, $description, $imageur
 }
 
 function updateEvent($eid, $eventname, $max_participants, $description, $imageurl, $statusevent) {
-    global $conn;
+    $conn = getConnection();
     $sql = "UPDATE event SET eventname=?, max_participants=?, description=?, imageurl=?, statusevent=? WHERE eid=?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("sisssi", $eventname, $max_participants, $description, $imageurl, $statusevent, $eid);
@@ -35,7 +35,7 @@ function updateEvent($eid, $eventname, $max_participants, $description, $imageur
 }
 
 function deleteEvent($eid) {
-    global $conn;
+    $conn = getConnection();
     $sql = "DELETE FROM event WHERE eid=?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $eid);
