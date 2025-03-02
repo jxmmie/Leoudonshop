@@ -118,32 +118,24 @@ $events = getAllEvents(); // เรียกใช้ฟังก์ชัน ge
             margin-right: 5px;
             /* ระยะห่างระหว่างตัวเลขกับไอคอน */
         }
-
         .back-button {
-            background-color: #333;
-            /* สีพื้นหลังปุ่ม */
-            color: white;
-            /* สีข้อความ */
-            padding: 10px 20px;
-            /* ระยะห่างภายในปุ่ม */
-            border: none;
-            /* ลบเส้นขอบ */
-            border-radius: 5px;
-            /* ทำให้มุมโค้งมน */
-            cursor: pointer;
-            /* เปลี่ยนเคอร์เซอร์เป็นรูปมือเมื่อชี้ */
-            font-size: 16px;
-            /* ขนาดตัวอักษร */
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-            /* เพิ่มเงา */
-            transition: background-color 0.3s ease;
-            /* เพิ่ม transition เมื่อ hover */
-        }
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+    position: fixed; /* เปลี่ยนเป็น position: fixed; */
+    left: 20px; /* ปรับตำแหน่งชิดซ้ายของ viewport */
+    bottom: 20px; /* ปรับตำแหน่งชิดด้านล่างของ viewport */
+}
 
-        .back-button:hover {
-            background-color: #555;
-            /* เปลี่ยนสีพื้นหลังเมื่อ hover */
-        }
+.back-button:hover {
+    background-color: #555;
+}
     </style>
 </head>
 
@@ -161,8 +153,9 @@ $events = getAllEvents(); // เรียกใช้ฟังก์ชัน ge
         <?php else: ?>
             <p>ไม่มีข้อมูลกิจกรรม</p>
         <?php endif; ?>
-        <button class="back-button">ย้อนกลับ</button>
+        
     </div>
+    <button class="back-button">ย้อนกลับ</button>
 </body>
 
 </html>
