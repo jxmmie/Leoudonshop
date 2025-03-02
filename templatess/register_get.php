@@ -109,11 +109,11 @@
     <div class="container">
         <h1>สมัครสมาชิก</h1>
         <form action="/register" method="post">
-            <label for="firstname">ชื่อจริง:</label>
-            <input type="text" id="firstname" name="firstname" placeholder="กรุณากรอกชื่อจริงของคุณ" required>
+            <label for="f_name">ชื่อจริง:</label>
+            <input type="text" id="f_name" name="f_name" placeholder="กรุณากรอกชื่อจริงของคุณ" required>
 
-            <label for="lastname">นามสกุล:</label>
-            <input type="text" id="lastname" name="lastname" placeholder="กรุณากรอกนามสกุลของคุณ" required>
+            <label for="l_name">นามสกุล:</label>
+            <input type="text" id="l_name" name="l_name" placeholder="กรุณากรอกนามสกุลของคุณ" required>
 
             <label for="email">อีเมล:</label>
             <input type="email" id="email" name="email" placeholder="กรอกอีเมล เช่น example@example.com" required>
