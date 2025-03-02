@@ -65,8 +65,7 @@
     <!-- Navbar -->
     <nav>
         <div class="nav-left">
-            <span class="nav-item"><a href="#">กิจกรรม</a></span>
-            <span class="nav-item"><a href="#">Home</a></span>
+            <span class="nav-item"><a href="/event">กิจกรรม</a></span>
         </div>
         <div class="nav-right">
             <div class="search-box">
@@ -78,10 +77,11 @@
             <div class="dropdown-container">
                 <span class="menu-icon">☰</span>
                 <div class="dropdown-menu">
-                    <a href="#">โปรไฟล์</a>
-                    <a href="#">กิจกรรมของฉัน</a>
-                    <a href="#">ประวัติ</a>
-                    <a href="#">สร้างกิจกรรม</a>
+                    <a href="/profileuser">โปรไฟล์</a>
+                    <a href="/event_user">กิจกรรมของฉัน</a>
+                    <a href="/list_event">ประวัติ</a>
+                    <a href="/create_event">สร้างกิจกรรม</a>
+                    <a href="/logout">logout</a>
                 </div>
             </div>
         </div>

@@ -16,10 +16,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // สร้างบัญชีผู้ใช้ใหม่
     if (createUser($f_name, $l_name, $email, $password, $gender)) {
-        echo "<script>alert('สมัครสมาชิกสำเร็จ!'); window.location.href='/login.php';</script>";
+        echo "<script>alert('สมัครสมาชิกสำเร็จ!'); window.location.href='/login';</script>";
    
     } else {
-        echo "<script>alert('เกิดข้อผิดพลาด!'); window.location.href='/register.php';</script>";
+        echo "<script>alert('เกิดข้อผิดพลาด!'); window.location.href='/register';</script>";
 
     }
 } else {
