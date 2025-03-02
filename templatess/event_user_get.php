@@ -1,5 +1,25 @@
+<?php
+// ตรวจสอบว่า session เปิดอยู่หรือไม่
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+// ตรวจสอบว่าผู้ใช้ล็อกอินแล้วหรือไม่
+if (!isset($_SESSION['uid'])) {
+    echo "กรุณาเข้าสู่ระบบ";
+    exit;
+}
+
+$uid = $_SESSION['uid'];
+
+
+
+$events = getUserEvents($uid);
+
+?>
 <!DOCTYPE html>
 <html>
+  
 <head>
 <title>กิจกรรมของฉัน</title>
 <style>
@@ -83,57 +103,46 @@
   .grid-item .heart-icon {
     float: right; /* จัดไอคอนหัวใจไปทางขวา */
   }
+  .grid-item:hover {
+            transform: scale(1.05); /* ขยายขนาดเมื่อ hover */
+        }
 
   .grid-item .like-count {
     float: right; /* จัดตัวเลขไปทางขวา */
     margin-right: 5px; /* ระยะห่างระหว่างตัวเลขกับไอคอน */
   }
   .back-button {
-    background-color: #333; /* สีพื้นหลังปุ่ม */
-    color: white; /* สีข้อความ */
-    padding: 10px 20px; /* ระยะห่างภายในปุ่ม */
-    border: none; /* ลบเส้นขอบ */
-    border-radius: 5px; /* ทำให้มุมโค้งมน */
-    cursor: pointer; /* เปลี่ยนเคอร์เซอร์เป็นรูปมือเมื่อชี้ */
-    font-size: 16px; /* ขนาดตัวอักษร */
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* เพิ่มเงา */
-    transition: background-color 0.3s ease; /* เพิ่ม transition เมื่อ hover */
-  }
-  .back-button:hover {
-    background-color: #555; /* เปลี่ยนสีพื้นหลังเมื่อ hover */
-  }
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+    position: fixed; /* เปลี่ยนเป็น position: fixed; */
+    left: 20px; /* ปรับตำแหน่งชิดซ้ายของ viewport */
+    bottom: 20px; /* ปรับตำแหน่งชิดด้านล่างของ viewport */
+}
+
+.back-button:hover {
+    background-color: #555;
+}
 </style>
 </head>
 <body>
-
-
-<div class="grid-container">
-  <div class="grid-item">
-    <span class="like-count"></span>
-    <span class="heart-icon">♡</span>
-  </div>
-  <div class="grid-item">
-    <span class="like-count"></span>
-    <span class="heart-icon">♡</span>
-  </div>
-  <div class="grid-item">
-    <span class="like-count"></span>
-    <span class="heart-icon">♡</span>
-  </div>
-  <div class="grid-item">
-    <span class="like-count"></span>
-    <span class="heart-icon">♡</span>
-  </div>
-  <div class="grid-item">
-    <span class="like-count"></span>
-    <span class="heart-icon">♡</span>
-  </div>
-  <div class="grid-item">
-    <span class="like-count"></span>
-    <span class="heart-icon">♡</span>
-  </div>
-  <button class="back-button">ย้อนกลับ</button>
-</div>
-
+    <div class="grid-container">
+        <?php if (!empty($events)): ?>
+            <?php foreach ($events as $event): ?>
+              <div class="grid-item" onclick="window.location.href='/edit_event?eid=<?php echo $event['eid']; ?>';">
+                <h3><?php echo htmlspecialchars($event['eventname']); ?></h3>
+            </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>ไม่มีข้อมูลกิจกรรม</p>
+        <?php endif; ?>
+    </div>
+    <button class="back-button">ย้อนกลับ</button>
 </body>
 </html>

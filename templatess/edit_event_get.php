@@ -1,3 +1,27 @@
+<?php
+// ฟังก์ชัน getEventById()
+
+
+// ตรวจสอบว่ามี eid ใน URL หรือไม่
+if (isset($_GET['eid'])) {
+    $eid = $_GET['eid'];
+    $event = getEventById($eid); // เรียกใช้ฟังก์ชันดึงข้อมูล
+
+    if ($event) {
+        $activityName = $event['eventname'];
+        $activityDetails = $event['description'];
+        $participants = $event['max_participants'];
+        $date = $event['createdate'];
+        $imagePath = $event['imageurl'];
+
+        // ... แสดงผลในฟอร์ม ...
+    } else {
+        echo "ไม่พบกิจกรรม";
+    }
+} else {
+    echo "ไม่ได้รับ eid";
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -163,37 +187,36 @@
 </head>
 <body>
 
-
-
 <div class="container" style="margin-top: 60px;">
-  <div class="left-panel">
-    <div class="image-upload-box">
-      <img src="your-image.png" alt="Upload Image">
+    <div class="left-panel">
+        <div class="image-upload-box">
+            <img src="<?php echo $imagePath; ?>" alt="Upload Image">
+        </div>
+        
+        <button class="button">ย้อนกลับ</button>
     </div>
-    <button class="button" type="submit">แก้ไขกิจกรรม</button>
-    <button class="button">ย้อนกลับ</button>
-  </div>
-  <div class="right-panel">
-    <form action="/submit-activity" method="post">
-      <div class="form-group">
-        <label for="activityName">ชื่อกิจกรรม</label>
-        <input type="text" id="activityName" name="activityName" placeholder="ตั้งชื่อกิจกรรมของคุณ">
-      </div>
-      <div class="form-group">
-        <label for="activityDetails">รายละเอียดกิจกรรม</label>
-        <textarea id="activityDetails" name="activityDetails" placeholder="รายละเอียดกิจกรรม"></textarea>
-      </div>
-      <div class="form-group">
-        <label for="participants">จำนวนผู้เข้าร่วม</label>
-        <input type="number" id="participants" name="participants" placeholder="จำนวนผู้เข้าร่วม">
-      </div>
-      <div class="form-group">
-        <label for="date">วัน/เดือน/ปี</label>
-        <input type="date" id="date" name="date">
-      </div>
-    </form>
-    <button class="delete-button">ลบกิจกรรม</button>
-  </div>
+    <div class="right-panel">
+        <form action="/edit_event" method="post">
+            <div class="form-group">
+                <label for="activityName">ชื่อกิจกรรม</label>
+                <input type="text" id="activityName" name="eventname" placeholder="ตั้งชื่อกิจกรรมของคุณ" value="<?php echo $activityName; ?>">
+            </div>
+            <div class="form-group">
+                <label for="activityDetails">รายละเอียดกิจกรรม</label>
+                <textarea id="activityDetails" name="description" placeholder="รายละเอียดกิจกรรม"><?php echo $activityDetails; ?></textarea>
+            </div>
+            <div class="form-group">
+                <label for="participants">จำนวนผู้เข้าร่วม</label>
+                <input type="number" id="participants" name="max_participants" placeholder="จำนวนผู้เข้าร่วม" value="<?php echo $participants; ?>">
+            </div>
+            <div class="form-group">
+                <label for="date">วัน/เดือน/ปี</label>
+                <input type="date" id="date" name="createdate" value="<?php echo $date; ?>">
+            </div>
+            <button class="button" type="submit">บันทึกการแก้ไข</button>
+        </form>
+        <button class="delete-button">ลบกิจกรรม</button>
+    </div>
 </div>
 
 </body>

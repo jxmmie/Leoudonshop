@@ -145,7 +145,7 @@ $events = getAllEvents(); // เรียกใช้ฟังก์ชัน ge
             <?php foreach ($events as $event): ?>
                 <div class="grid-item">
                     <h3><?php echo $event['eventname']; ?></h3>
-                    <p><?php echo $event['description']; ?></p>
+             
                     <span class="like-count"></span>
                     <span class="heart-icon">♡</span>
                 </div>

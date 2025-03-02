@@ -25,6 +25,18 @@ function createEvent($uid, $eventname, $max_participants, $description, $imageur
     $stmt->bind_param("isisss", $uid, $eventname, $max_participants, $description, $imageurl, $statusevent);
     return $stmt->execute();
 }
+function getUserEvents($uid) {
+    $conn = getConnection();
+    $sql = "SELECT * FROM event WHERE uid = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $uid);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $events = $result->fetch_all(MYSQLI_ASSOC);
+    $stmt->close();
+    $conn->close();
+    return $events;
+}
 
 function updateEvent($eid, $eventname, $max_participants, $description, $imageurl, $statusevent) {
     $conn = getConnection();
