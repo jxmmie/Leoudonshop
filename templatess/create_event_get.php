@@ -158,23 +158,34 @@
     <button class="button">ย้อนกลับ</button>
   </div>
   <div class="right-panel">
-    <form action="/submit-activity" method="post">
+    <form action="/create_event" method="post">
       <div class="form-group">
-        <label for="activityName">ชื่อกิจกรรม</label>
-        <input type="text" id="activityName" name="activityName" placeholder="ตั้งชื่อกิจกรรมของคุณ" >
-      </div>
-      <div class="form-group">
-        <label for="activityDetails">รายละเอียดกิจกรรม</label>
-        <textarea id="activityDetails" name="activityDetails" placeholder="รายละเอียดกิจกรรม"></textarea>
-      </div>
-      <div class="form-group">
-        <label for="participants">จำนวนผู้เข้าร่วม</label>
-        <input type="number" id="participants" name="participants" placeholder="จำนวนผู้เข้าร่วม">
-      </div>
-      <div class="form-group">
-        <label for="date">วัน/เดือน/ปี</label>
-        <input type="date" id="date" name="date">
-      </div>
+              
+                <input type="hidden" class="form-control" id="uid" name="uid" value="<?= $data['result']['uid'] ?>" >
+            </div>
+            <div class="form-group">
+                <label for="eventname">ชื่อกิจกรรม:</label>
+                <input type="text" class="form-control" id="eventname" name="eventname" required>
+            </div>
+            <div class="form-group">
+                <label for="max_participants">จำนวนผู้เข้าร่วมสูงสุด:</label>
+                <input type="number" class="form-control" id="max_participants" name="max_participants" required>
+            </div>
+            <div class="form-group">
+                <label for="description">คำอธิบายกิจกรรม:</label>
+                <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="imageurl">ลิงก์ภาพกิจกรรม:</label>
+                <input type="text" class="form-control" id="imageurl" name="imageurl" required>
+            </div>
+            <div class="form-group">
+                <label for="statusevent">สถานะกิจกรรม:</label>
+                <select class="form-control" id="statusevent" name="statusevent" required>
+                    <option value="active">กำลังเปิด</option>
+                    <option value="inactive">ปิด</option>
+                </select>
+            </div>
     </form>
   </div>
 </div>
