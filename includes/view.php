@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 function renderView(string $template, array $data = []): void
 {
-    if ($template !== 'home_get') {
+    if ($template !== 'home_get' || 'login_get' || 'register_get') {
         include TEMPLATES_DIR . '/header.php';
     }
     
