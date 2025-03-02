@@ -146,38 +146,35 @@
   }
 </style>
 <body>
-
-
-
-<div class="container" style="margin-top: 60px;">
-  <div class="left-panel">
-    <div class="image-upload-box">
-      <img src="your-image.png" alt="Upload Image" > 
+    <div class="container" style="margin-top: 60px;">
+        <div class="left-panel">
+            <div class="image-upload-box">
+                <img src="your-image.png" alt="Upload Image">
+            </div>
+            <button class="button" type="submit" form="activityForm">สร้างกิจกรรม</button> <button class="button">ย้อนกลับ</button>
+        </div>
+        <div class="right-panel">
+            <form id="activityForm" action="/create_event" method="post">
+                <div class="form-group">
+                    <label for="activityName">ชื่อกิจกรรม</label>
+                    <input type="text" id="activityName" name="activityName" placeholder="ตั้งชื่อกิจกรรมของคุณ">
+                </div>
+                <div class="form-group">
+                    <label for="activityDetails">รายละเอียดกิจกรรม</label>
+                    <textarea id="activityDetails" name="activityDetails" placeholder="รายละเอียดกิจกรรม"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="participants">จำนวนผู้เข้าร่วม</label>
+                    <input type="number" id="participants" name="participants" placeholder="จำนวนผู้เข้าร่วม">
+                </div>
+                <div class="form-group">
+                    <label for="date">วัน/เดือน/ปี</label>
+                    <input type="date" id="date" name="date">
+                </div>
+                
+                
+            </form>
+        </div>
     </div>
-    <button class="button" type="submit">สร้างกิจกรรม</button>
-    <button class="button">ย้อนกลับ</button>
-  </div>
-  <div class="right-panel">
-    <form action="/submit-activity" method="post">
-      <div class="form-group">
-        <label for="activityName">ชื่อกิจกรรม</label>
-        <input type="text" id="activityName" name="activityName" placeholder="ตั้งชื่อกิจกรรมของคุณ" >
-      </div>
-      <div class="form-group">
-        <label for="activityDetails">รายละเอียดกิจกรรม</label>
-        <textarea id="activityDetails" name="activityDetails" placeholder="รายละเอียดกิจกรรม"></textarea>
-      </div>
-      <div class="form-group">
-        <label for="participants">จำนวนผู้เข้าร่วม</label>
-        <input type="number" id="participants" name="participants" placeholder="จำนวนผู้เข้าร่วม">
-      </div>
-      <div class="form-group">
-        <label for="date">วัน/เดือน/ปี</label>
-        <input type="date" id="date" name="date">
-      </div>
-    </form>
-  </div>
-</div>
-
 </body>
 </html>
