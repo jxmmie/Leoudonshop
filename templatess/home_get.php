@@ -138,8 +138,8 @@
         <h1>Welcome</h1>
         <p>To my project</p>
         <div class="button-group">
-            <a href="#" class="btn">เข้าสู่ระบบ</a>
-            <a href="#" class="btn">สมัครสมาชิก</a>
+            <a href="/login" class="btn">เข้าสู่ระบบ</a>
+            <a href="/register" class="btn">สมัครสมาชิก</a>
         </div>
     </div>
 </body>
