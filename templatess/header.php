@@ -6,17 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>โปรไฟล์ของฉัน</title>
     <style>
-        /* ปิดการแสดงผลสกอบา */
+        /* ปิดการแสดงสกอบาร์ */
         body {
             overflow: hidden;
-        }
-
-        /* ใส่สไตล์อื่นๆ ตามปกติ */
-        body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: rgb(110, 110, 110);
+            background-color: #707070; /* สีเทากลาง */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -27,8 +23,8 @@
 
         /* Navbar */
         nav {
-            background-color: #ddd;
-            padding: 10px;
+            background-color: #333; /* สีเทาเข้ม */
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -37,7 +33,7 @@
             top: 0;
             left: 0;
             z-index: 100;
-            box-sizing: border-box; /* เพื่อให้แน่ใจว่า padding ไม่ทำให้ navbar ยาวเกิน */
+            box-sizing: border-box;
         }
 
         .nav-left,
@@ -46,34 +42,99 @@
             align-items: center;
         }
 
-        .nav-item {
-            margin-right: 20px;
-        }
-
         .nav-item a {
             text-decoration: none;
-            color: inherit;
+            color: #fff; /* สีขาว */
+            font-size: 16px;
+            margin-right: 20px;
+            transition: 0.3s;
+        }
+
+        .nav-item a:hover {
+            color: #ffcc00; /* สีเหลืองเมื่อ hover */
+        }
+
+        /* ช่องค้นหา */
+        .search-box {
+            background: #555;
+            padding: 5px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+
+        .search-box input {
+            border: none;
+            background: transparent;
+            outline: none;
+            padding: 5px;
+            color: white;
+        }
+
+        .search-icon {
+            margin-left: 5px;
+            color: white;
+        }
+
+        .clear-icon {
+            margin-left: 5px;
+            color: red;
             cursor: pointer;
         }
 
-        
+        /* ไอคอน */
+        .notification-icon,
+        .menu-icon {
+            font-size: 20px;
+            color: white;
+            margin-left: 15px;
+            cursor: pointer;
+        }
+
+        /* Dropdown เมนู */
+        .dropdown-container {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 30px;
+            background-color: #444;
+            border-radius: 5px;
+            width: 150px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 10px;
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #555;
+        }
+
+        .menu-icon:hover + .dropdown-menu,
+        .dropdown-menu:hover {
+            display: block;
+        }
     </style>
 </head>
 
 <body>
 
-    <!-- Navbar -->
     <nav>
         <div class="nav-left">
             <span class="nav-item"><a href="/event">กิจกรรม</a></span>
         </div>
-        <div class="nav-right">
-            <div class="search-box">
-                <input type="text" placeholder="ค้นหา...">
-                <span class="search-icon"></span>
-                <span class="clear-icon">X</span>
-            </div>
-            <span class="notification-icon"></span>
+        <div class="nav-right">>
+            <span class="notification-icon">🔔</span>
             <div class="dropdown-container">
                 <span class="menu-icon">☰</span>
                 <div class="dropdown-menu">
@@ -81,12 +142,11 @@
                     <a href="/event_user">กิจกรรมของฉัน</a>
                     <a href="/list_event">ประวัติ</a>
                     <a href="/create_event">สร้างกิจกรรม</a>
-                    <a href="/logout">logout</a>
+                    <a href="/logout">ออกจากระบบ</a>
                 </div>
             </div>
         </div>
     </nav>
-
 
 </body>
 

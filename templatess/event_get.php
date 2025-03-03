@@ -133,10 +133,33 @@ $events = $data['events'];
     </style>
 </head>
 <body>
+<nav>
+        <div class="nav-left">
+            <span class="nav-item"><a href="/event">กิจกรรม</a></span>
+        </div>
+        <div class="nav-right">
+            <div class="search-box">
+                <input type="text" placeholder="ค้นหา...">
+                <span class="search-icon">🔍</span>
+            </div>
+            <span class="notification-icon">🔔</span>
+            <div class="dropdown-container">
+                <span class="menu-icon">☰</span>
+                <div class="dropdown-menu">
+                    <a href="/profileuser">โปรไฟล์</a>
+                    <a href="/event_user">กิจกรรมของฉัน</a>
+                    <a href="/list_event">ประวัติ</a>
+                    <a href="/create_event">สร้างกิจกรรม</a>
+                    <a href="/logout">ออกจากระบบ</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
     <div class="grid-container">
         <?php if (!empty($events)): ?>
             <?php foreach ($events as $event): ?>
-                <form method="POST" action="/detail">
+                <form method="POST" action="/event">
                     <input type="hidden" name="event_name" value="<?php echo htmlspecialchars($event['eventname']); ?>">
                     <input type="hidden" name="eid" value="<?php echo htmlspecialchars($event['eid']); ?>">
                     <button type="submit" class="grid-item">
