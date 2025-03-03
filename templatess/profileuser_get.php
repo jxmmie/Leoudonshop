@@ -1,5 +1,5 @@
-
-
+<!DOCTYPE html>
+<html lang="th">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,158 +9,93 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: rgb(110, 110, 110);
+            background-color: #6e6e6e;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            box-sizing: border-box;
         }
 
-        /* Navbar */
-       
-        .search-box {
-            display: flex;
-            align-items: center;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 5px;
-            margin-right: 10px;
-        }
-
-        .search-box input[type="text"] {
-            border: none;
-            outline: none;
-            padding: 5px;
-        }
-
-        .search-icon,
-        .clear-icon {
-            margin-left: 5px;
-            cursor: pointer;
-        }
-
-        .notification-icon,
-        .menu-icon {
-            margin-left: 10px;
-            cursor: pointer;
-        }
-
-        /* เมนูเลื่อนลง */
-        .dropdown-container {
-            position: relative;
-        }
-
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-            z-index: 1;
-            right: 0;
-            top: 100%;
-        }
-
-        .dropdown-container:hover .dropdown-menu {
-            display: block;
-        }
-
-        .dropdown-menu a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-        .dropdown-menu a:hover {
-            background-color: #f1f1f1;
-        }
-
-        /* Profile Page */
         .container {
             display: flex;
-            justify-content: center;
-            width: 85%;
-            background-color: rgb(161, 161, 161);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            position: relative;
-            min-height: 700px;
-            margin-top: 80px; /* เพิ่มระยะห่างจาก navbar */
+            background-color: #9e9e9e;
+            width: 80%;
+            max-width: 900px;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            align-items: center;
         }
 
         .profile-header {
+            width: 40%;
             display: flex;
-            justify-content: center;
-            align-items: center;
             flex-direction: column;
-            margin-right: 30px;
-            width: 200px;
-            margin-bottom: 20px;
-            position: relative;
+            align-items: center;
+            text-align: center;
+            padding-right: 30px;
         }
 
-        .profile-header button {
-            padding: 20px 30px;
+        .profile-header img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid #555;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        .upload-button {
+            display: inline-block;
             background-color: #555;
-            border: none;
+            color: white;
+            padding: 10px 15px;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 18px;
-            color: white;
-            width: 100%;
+            transition: background 0.3s;
         }
 
-        .profile-header button:hover {
+        .upload-button:hover {
             background-color: #444;
         }
 
         .profile-details {
+            width: 60%;
             display: flex;
             flex-direction: column;
-            gap: 30px;
-            flex-grow: 1;
-            min-width: 250px;
-            padding-bottom: 30px;
-            margin-left: 30%;
+            gap: 15px;
         }
 
-        .profile-details .form-group {
-            margin-bottom: 15px;
-        }
-
-        .profile-details .form-group label {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .profile-details .form-group div {
-            width: 100%;
-            max-width: 300px;
+        .form-group {
+            background: #444;
             padding: 10px;
-            border: 1px solid #888;
             border-radius: 5px;
-            background-color: #555;
-            color: white;
-            text-align: left;
+            color: #f1f1f1;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #ffcc00; /* สีหัวข้อ */
+        }
+
+        .form-group div {
+            font-size: 16px;
+            color: #d3d3d3; /* สีข้อความ */
         }
 
         .back-button {
             background-color: #333;
             color: white;
-            padding: 25px 35px;
+            padding: 15px 20px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 18px;
-            width: 20%;
+            font-size: 16px;
             position: absolute;
-            margin-left: 1%;
-            margin-right: 73%;
-            margin-top: 45%;
+            bottom: 20px;
+            left: 20px;
         }
 
         .back-button:hover {
@@ -168,49 +103,36 @@
         }
     </style>
 </head>
-
 <body>
-
-   
-
-    <!-- Profile Section -->
     <div class="container">
-        <!-- Left Column: Profile Picture -->
         <div class="profile-header">
-            <button>อัปโหลดโปรไฟล์</button>
+            <img src="profile.jpg" alt="">
+            <label for="uploadProfile" class="upload-button">อัปโหลดโปรไฟล์</label>
+            <input type="file" id="uploadProfile" accept="image/*" hidden>
         </div>
-
-        <!-- Right Column: Profile Details -->
         <div class="profile-details">
             <div class="form-group">
-                <label for="firstName">ชื่อ</label>
-                <div id="firstName">ธิวากร</div>
+                <label>ชื่อ</label>
+                <div>ธิวากร</div>
             </div>
-
             <div class="form-group">
-                <label for="lastName">นามสกุล</label>
-                <div id="lastName">จำปาบุรี</div>
+                <label>นามสกุล</label>
+                <div>จำปาบุรี</div>
             </div>
-
             <div class="form-group">
-                <label for="uid">รหัส UID</label>
-                <div id="uid">1234567890</div>
+                <label>รหัส UID</label>
+                <div>1234567890</div>
             </div>
-
             <div class="form-group">
-                <label for="gender">เพศ</label>
-                <div id="gender">ชาย</div>
+                <label>เพศ</label>
+                <div>ชาย</div>
             </div>
-
             <div class="form-group">
-                <label for="email">อีเมล</label>
-                <div id="email">your-email@example.com</div>
+                <label>อีเมล</label>
+                <div>your-email@example.com</div>
             </div>
         </div>
     </div>
-
-    <button class="back-button">ย้อนกลับ</button>
-
+    <button class="back-button" onclick="window.history.back();">ย้อนกลับ</button>
 </body>
-
 </html>
