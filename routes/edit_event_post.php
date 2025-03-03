@@ -1,10 +1,5 @@
 <?php
 // ในไฟล์ update_event_post.php
-
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_SESSION['uid'])) {
         $uid = $_SESSION['uid']; // รับ uid จาก session
@@ -33,11 +28,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result = updateEvent($eid, $eventname, $max_participants, $description, $imageurl, $statusevent, $createdate);
 
     if ($result) {
-        $data['alert'] = "แก้ไขกิจกรรมสำเร็จ";
-        echo $data['alert'];
+        echo "<script>alert('แก้ไขกิจกรรมสำเร็จ!'); window.location.href='/event_user';</script>";
+
     } else {
-        $data['alert'] = "แก้ไขกิจกรรมไม่สำเร็จ";
-        echo $data['alert'];
+        echo "<script>alert('แก้ไขกิจกรรมไม่สำเร็จ!'); window.location.href='/event_user';</script>";
+
     }
 } else {
     $data['alert'] = "Invalid request";
