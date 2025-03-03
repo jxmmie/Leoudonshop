@@ -218,7 +218,7 @@ if (isset($_GET['eid'])) {
 </form>
 <form action="/list_event" method="post" >
                         <input type="hidden" name="eid" value="<?= $event['eid'] ?>">
-                        <button type="submit" name="enroll" class="btn btn-primary">เข้าร่วม</button>
+                        <button type="submit" name="enroll" class="btn btn-primary">ผู้เข้าร่วมกิจกรรม</button>
                     </form>
         <button class="delete-button">ลบกิจกรรม</button>
     </div>

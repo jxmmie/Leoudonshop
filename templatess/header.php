@@ -120,10 +120,6 @@
             background-color: #555;
         }
 
-        .menu-icon:hover + .dropdown-menu,
-        .dropdown-menu:hover {
-            display: block;
-        }
     </style>
 </head>
 
@@ -133,11 +129,11 @@
         <div class="nav-left">
             <span class="nav-item"><a href="/event">กิจกรรม</a></span>
         </div>
-        <div class="nav-right">>
+        <div class="nav-right">
             <span class="notification-icon">🔔</span>
             <div class="dropdown-container">
-                <span class="menu-icon">☰</span>
-                <div class="dropdown-menu">
+                <span class="menu-icon" onclick="toggleDropdown()">☰</span>
+                <div class="dropdown-menu" id="dropdownMenu">
                     <a href="/profileuser">โปรไฟล์</a>
                     <a href="/event_user">กิจกรรมของฉัน</a>
                     <a href="">ประวัติ</a>
@@ -147,6 +143,19 @@
             </div>
         </div>
     </nav>
+
+    <script>
+        // ฟังก์ชั่นสำหรับแสดง/ซ่อนเมนู dropdown
+        function toggleDropdown() {
+            var dropdownMenu = document.getElementById('dropdownMenu');
+            // สลับการแสดง/ซ่อนเมนู
+            if (dropdownMenu.style.display === "block") {
+                dropdownMenu.style.display = "none";
+            } else {
+                dropdownMenu.style.display = "block";
+            }
+        }
+    </script>
 
 </body>
 
