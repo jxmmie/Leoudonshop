@@ -105,11 +105,11 @@
 </head>
 <body>
     <div class="container">
-        <div class="profile-header">
+        <!-- <div class="profile-header">
             <img src="profile.jpg" alt="">
             <label for="uploadProfile" class="upload-button">อัปโหลดโปรไฟล์</label>
             <input type="file" id="uploadProfile" accept="image/*" hidden>
-        </div>
+        </div> -->
         <div class="profile-details">
             <div class="form-group">
                 <label>ชื่อ</label>

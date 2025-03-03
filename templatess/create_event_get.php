@@ -151,27 +151,27 @@
             <div class="image-upload-box">
                 <img src="your-image.png" alt="Upload Image">
             </div>
-            <button class="button" type="submit" form="activityForm">สร้างกิจกรรม</button> <button class="button" onclick="window.history.back();">ย้อนกลับ</button>
+             <button class="button" onclick="window.history.back();">ย้อนกลับ</button>
         </div>
         <div class="right-panel">
             <form id="activityForm" action="/create_event" method="post">
                 <div class="form-group">
                     <label for="activityName">ชื่อกิจกรรม</label>
-                    <input type="text" id="activityName" name="activityName" placeholder="ตั้งชื่อกิจกรรมของคุณ">
+                    <input type="text" id="activityName" name="activityName" placeholder="ตั้งชื่อกิจกรรมของคุณ" required>
                 </div>
                 <div class="form-group">
                     <label for="activityDetails">รายละเอียดกิจกรรม</label>
-                    <textarea id="activityDetails" name="activityDetails" placeholder="รายละเอียดกิจกรรม"></textarea>
+                    <textarea id="activityDetails" name="activityDetails" placeholder="รายละเอียดกิจกรรม"required></textarea >
                 </div>
                 <div class="form-group">
                     <label for="participants">จำนวนผู้เข้าร่วม</label>
-                    <input type="number" id="participants" name="participants" placeholder="จำนวนผู้เข้าร่วม">
+                    <input type="number" id="participants" name="participants" placeholder="จำนวนผู้เข้าร่วม" required>
                 </div>
                 <div class="form-group">
-                    <label for="date">วัน/เดือน/ปี</label>
-                    <input type="date" id="date" name="date">
+                    <label for="date">วัน/เดือน/ปี ที่สิ้นสุด</label>
+                    <input type="date" id="date" name="date" require>
                 </div>
-                
+                <button class="button" type="submit" form="activityForm">สร้างกิจกรรม</button>
                 
             </form>
         </div>

@@ -20,12 +20,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result = createEvent($uid, $eventname, $max_participants, $description, $imageurl, $statusevent, $date);
 
     if ($result) {
-        $data['alert'] = "สร้างกิจกรรมสำเร็จ";
-        echo $data['alert'];
+        echo "<script>alert('สร้างกิจกรรมสำเร็จ!'); window.location.href='/event';</script>";
      
     } else {
-        $data['alert'] = "สร้างกิจกรรมไม่สำเร็จ";
-        echo $data['alert'];
+        echo "<script>alert('สร้างกิจกรรมไม่สำเร็จ!'); window.location.href='/event';</script>";
     }
 } else {
     $data['alert'] = "Invalid request";
