@@ -193,7 +193,7 @@ if (isset($_GET['eid'])) {
             <img src="<?php echo $imagePath; ?>" alt="Upload Image">
         </div>
         
-        <button class="button">ย้อนกลับ</button>
+        <button class="button" onclick="window.history.back();">ย้อนกลับ</button>
     </div>
     <div class="right-panel">
     <form action="/edit_event" method="post">

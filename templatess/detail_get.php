@@ -65,6 +65,28 @@ $uid =  $_SESSION['uid'];
         .back-link i {
             margin-right: 8px;
         }
+        /* ปรับปุ่มเข้าร่วม */
+        .btn-enroll {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #28a745; /* สีเขียวสด */
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+        .btn-enroll:hover {
+            background-color: #218838; /* สีเขียวเข้มเมื่อ hover */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        .btn-enroll:active {
+            transform: scale(0.98); /* เอฟเฟกต์คลิก */
+        }
     </style>
 </head>
 <body>
@@ -85,10 +107,10 @@ $uid =  $_SESSION['uid'];
             <?php endif; ?>
         </div>
         <form action="/detail" method="post" >
-                        <input type="hidden" name="uid" value="<?= $uid ?>">
-                        <input type="hidden" name="eid" value="<?= $event['eid'] ?>">
-                        <button type="submit" name="enroll" class="btn btn-primary">เข้าร่วม</button>
-                    </form>
+            <input type="hidden" name="uid" value="<?= $uid ?>">
+            <input type="hidden" name="eid" value="<?= $event['eid'] ?>">
+            <button type="submit" name="enroll" class="btn-enroll">เข้าร่วมกิจกรรม</button>
+        </form>
         <a href="/event" class="back-link"><i class="fas fa-arrow-left"></i> กลับไปยังรายการกิจกรรม</a>
     </div>
 </body>

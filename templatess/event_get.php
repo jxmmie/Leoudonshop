@@ -144,7 +144,7 @@ $events = isset($data['events']) && is_array($data['events']) ? $data['events'] 
                 <div class="dropdown-menu">
                     <a href="/profileuser">โปรไฟล์</a>
                     <a href="/event_user">กิจกรรมของฉัน</a>
-                    <a href="/list_event">ประวัติ</a>
+                    <a href="">ประวัติ</a>
                     <a href="/create_event">สร้างกิจกรรม</a>
                     <a href="/logout">ออกจากระบบ</a>
                 </div>
@@ -170,7 +170,7 @@ $events = isset($data['events']) && is_array($data['events']) ? $data['events'] 
         <?php endif; ?>
     </div>
 
-    <button class="back-button" onclick="window.history.back();">ย้อนกลับ</button>
+   
 </body>
 
 </html
