@@ -11,7 +11,7 @@ if (isset($_GET['eid'])) {
         $activityName = $event['eventname'];
         $activityDetails = $event['description'];
         $participants = $event['max_participants'];
-        $date = $event['createdate'];
+        $date = $event['date'];
         $imagePath = $event['imageurl'];
 
         // ... แสดงผลในฟอร์ม ...
@@ -211,8 +211,8 @@ if (isset($_GET['eid'])) {
         <input type="number" id="participants" name="max_participants" placeholder="จำนวนผู้เข้าร่วม" value="<?php echo $participants; ?>">
     </div>
     <div class="form-group">
-        <label for="date">วัน/เดือน/ปี</label>
-        <input type="date" id="date" name="createdate" value="<?php echo $date; ?>">
+        <label for="date">วัน/เดือน/ปี ที่สิ้นสุด</label>
+        <input type="date" id="date" name="date" value="<?php echo $date; ?>">
     </div>
     <button class="button" type="submit">บันทึกการแก้ไข</button>
 </form>

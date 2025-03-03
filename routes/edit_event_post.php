@@ -23,9 +23,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $description = $_POST['description'];
     $imageurl = 'default.jpg'; // แทนที่ด้วย imageurl ที่ถูกต้อง
     $statusevent = 'active';
-    $createdate = $_POST['createdate'];
+    $date = $_POST['date'];
 
-    $result = updateEvent($eid, $eventname, $max_participants, $description, $imageurl, $statusevent, $createdate);
+    $result = updateEvent($eid, $eventname, $max_participants, $description, $imageurl, $statusevent, $date);
 
     if ($result) {
         echo "<script>alert('แก้ไขกิจกรรมสำเร็จ!'); window.location.href='/event_user';</script>";

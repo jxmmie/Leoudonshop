@@ -72,7 +72,7 @@ $uid =  $_SESSION['uid'];
         <h2>📅 รายละเอียดกิจกรรม</h2>
         <h3><?php echo htmlspecialchars($event['eventname']); ?></h3>
         <div class="event-details">
-            <p><strong>📌 วันที่สร้าง:</strong> <?php echo htmlspecialchars($event['createdate']); ?></p>
+            <p><strong>📌 วันที่สิ้นสุด:</strong> <?php echo htmlspecialchars($event['date']); ?></p>
             <p><strong>👥 จำนวนผู้เข้าร่วมสูงสุด:</strong> <?php echo htmlspecialchars($event['max_participants']); ?> คน</p>
             <p><strong>📝 รายละเอียด:</strong> <?php echo nl2br(htmlspecialchars($event['description'])); ?></p>
             <p><strong>🔵 สถานะกิจกรรม:</strong> <?php echo htmlspecialchars($event['statusevent']); ?></p>

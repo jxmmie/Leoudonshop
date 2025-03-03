@@ -15,9 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $description = $_POST['activityDetails'];
     $imageurl = 'default.jpg'; // แทนที่ด้วย imageurl ที่ถูกต้อง
     $statusevent = 'active';
-    $createdate = $_POST['date'];
+    $date = $_POST['date'];
 
-    $result = createEvent($uid, $eventname, $max_participants, $description, $imageurl, $statusevent, $createdate);
+    $result = createEvent($uid, $eventname, $max_participants, $description, $imageurl, $statusevent, $date);
 
     if ($result) {
         $data['alert'] = "สร้างกิจกรรมสำเร็จ";
