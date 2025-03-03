@@ -53,16 +53,17 @@ function deleteEvent($eid) {
     $stmt->bind_param("i", $eid);
     return $stmt->execute();
 }
-function searchEvents(string $keyword): mysqli_result|bool
+function searchEvents(string $keyword): array
 {
     $conn = getConnection();
     $sql = 'SELECT * FROM event WHERE eventname LIKE ?';
     $stmt = $conn->prepare($sql);
-    $keyword = '%' . $keyword . '%'; // เพิ่มเครื่องหมาย % ก่อนและหลังคำค้นหา
+    $keyword = '%' . $keyword . '%';
     $stmt->bind_param('s', $keyword);
     $stmt->execute();
     $result = $stmt->get_result();
-    return $result; // คืนค่าผลลัพธ์
+    return $result->fetch_all(MYSQLI_ASSOC);
 }
+
 
 ?>

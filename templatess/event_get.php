@@ -1,14 +1,9 @@
 <?php
 // ตรวจสอบว่า $data['events'] มีข้อมูลหรือไม่ และเป็น array
-$events = isset($data['events']) && is_array($data['events']) ? $data['events'] : [];
-
-// รับค่าคำค้นหาจาก URL (ถ้ามี)
 $search = isset($_GET['search']) ? $_GET['search'] : '';
+$events = isset($data['events']) && is_array($data['events']) ? $data['events'] : [];
+// รับค่าคำค้นหาจาก URL (ถ้ามี)
 
-// หากไม่มีข้อมูลกิจกรรม ให้ตั้งค่า $events เป็น array ว่าง
-if (empty($events)) {
-    $events = [];
-}
 ?>
 
 <!DOCTYPE html>
@@ -158,7 +153,7 @@ if (empty($events)) {
     </nav>
 
     <div class="grid-container">
-        <?php if (!empty($events)): ?>
+        <?php if (!empty($events)||!empty($search)): ?>
             <?php foreach ($events as $event): ?>
                 <form method="POST" action="/event">
                     <input type="hidden" name="event_name" value="<?php echo htmlspecialchars($event['eventname']); ?>">
@@ -170,8 +165,8 @@ if (empty($events)) {
                     </button>
                 </form>
             <?php endforeach; ?>
-        <?php else: ?>
-            <p>ไม่มีข้อมูลกิจกรรม</p>
+            <?php else: ?>
+                <p>ไม่มีข้อมูลกิจกรรม</p>
         <?php endif; ?>
     </div>
 
