@@ -8,9 +8,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // เรียกใช้ฟังก์ชัน
     if (createEventmember($uid, $eid)) {
        
-        echo "<script>alert('สมาชิกถูกเพิ่มเข้าสู่กิจกรรมเรียบร้อยแล้ว!'); window.location.href='/event_user';</script>";
+        echo "<script>alert('สมาชิกถูกเพิ่มเข้าสู่กิจกรรมเรียบร้อยแล้ว!'); window.location.href='/event';</script>";
     } else {
-        echo "<script>alert('สมัครไปแล้ววว!'); window.location.href='/event_user';</script>";
+        echo "<script>alert('สมัครไปแล้ววว!'); window.location.href='/event';</script>";
     }
 }
 ?>

@@ -143,6 +143,5 @@ $events = getUserEvents($uid);
             <p>ไม่มีข้อมูลกิจกรรม</p>
         <?php endif; ?>
     </div>
-    <button class="back-button" onclick="window.history.back();">ย้อนกลับ</button>
 </body>
 </html>
