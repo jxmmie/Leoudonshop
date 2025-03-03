@@ -1,22 +1,15 @@
 <?php
-session_start();
-require 'EventModel.php'; // โหลด Model
-
 // ตรวจสอบว่ามีการส่งค่า event_name มาหรือไม่
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['eid'])) {
-    $_SESSION['selectedEvent'] = $_POST['eid'];
-}
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // รับข้อมูลจากฟอร์ม
+    $uid = $_POST['uid'];
+    $eid = $_POST['eid'];
 
-// ถ้าไม่มีค่าใน Session ให้กลับไปที่หน้าแรก
-if (!isset($_SESSION['selectedEvent'])) {
-    header("Location: /event");
-    exit();
-}
-
-$event =   getEventById($_SESSION['selectedEvent']);
-
-if (!$event) {
-    echo "ไม่พบกิจกรรม";
-    exit();
+    // เรียกใช้ฟังก์ชัน
+    if (createEventmember($uid, $eid)) {
+        echo "สมาชิกถูกเพิ่มเข้าสู่กิจกรรมเรียบร้อยแล้ว!";
+    } else {
+        echo "สมาชิกนี้ได้ถูกเพิ่มไปยังกิจกรรมนี้แล้ว!";
+    }
 }
 ?>

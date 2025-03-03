@@ -216,6 +216,11 @@ if (isset($_GET['eid'])) {
     </div>
     <button class="button" type="submit">บันทึกการแก้ไข</button>
 </form>
+<form action="/detail" method="post" >
+                        <input type="hidden" name="uid" value="<?= $uid ?>">
+                        <input type="hidden" name="eid" value="<?= $event['eid'] ?>">
+                        <button type="submit" name="enroll" class="btn btn-primary">เข้าร่วม</button>
+                    </form>
         <button class="delete-button">ลบกิจกรรม</button>
     </div>
 </div>
