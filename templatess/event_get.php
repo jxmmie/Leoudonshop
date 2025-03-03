@@ -1,5 +1,7 @@
 <?php
 $events = $data['events'];
+$search = $data['search'];
+
 ?>
 
 <!DOCTYPE html>
@@ -138,10 +140,12 @@ $events = $data['events'];
             <span class="nav-item"><a href="/event">กิจกรรม</a></span>
         </div>
         <div class="nav-right">
-            <div class="search-box">
-                <input type="text" placeholder="ค้นหา...">
-                <span class="search-icon">🔍</span>
-            </div>
+                    <form method="GET" action="/event">
+                        <div class="search-box">
+                            <input type="text" name="search" id="search" placeholder="ค้นหา..." value="<?php echo htmlspecialchars($search); ?>">
+                            <span class="search-icon">🔍</span>
+                        </div>
+                    </form>
             <span class="notification-icon">🔔</span>
             <div class="dropdown-container">
                 <span class="menu-icon">☰</span>
@@ -155,6 +159,22 @@ $events = $data['events'];
             </div>
         </div>
     </nav>
+    <script>
+    document.getElementById("search").addEventListener("input", function() {
+        const searchValue = this.value;
+        const urlParams = new URLSearchParams(window.location.search);
+        urlParams.set("search", searchValue);
+        window.history.replaceState({}, "", "?" + urlParams.toString());
+
+        fetch(window.location.pathname + "?" + urlParams.toString())
+            .then(response => response.text())
+            .then(html => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, "text/html");
+                document.querySelector(".grid-container").innerHTML = doc.querySelector(".grid-container").innerHTML;
+            });
+    });
+</script>
 
     <div class="grid-container">
         <?php if (!empty($events)): ?>

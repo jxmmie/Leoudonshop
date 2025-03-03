@@ -46,14 +46,19 @@ function updateEvent($eid, $eventname, $max_participants, $description, $imageur
     return $stmt->execute();
 }
 
-
-
-
 function deleteEvent($eid) {
     $conn = getConnection();
     $sql = "DELETE FROM event WHERE eid=?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $eid);
+    return $stmt->execute();
+}
+function searchEvents($search) {
+    $conn = getConnection();
+    $search = "%" . $search . "%"; // เพิ่ม Wildcard
+    $sql = "SELECT * FROM event WHERE eventname LIKE ?";
+    $stmt = $conn->prepare($sql); // สมมติว่า $this->pdo เป็น PDO object
+    $stmt->execute([$search]);
     return $stmt->execute();
 }
 ?>
