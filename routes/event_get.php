@@ -1,3 +1,3 @@
 <?php
-
-renderView('event_get');
+$events = getAllEvents();
+renderView('event_get',['events' => $events]);

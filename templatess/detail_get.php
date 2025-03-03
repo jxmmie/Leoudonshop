@@ -1,5 +1,4 @@
 
-
 <style>
  body {
     font-family: Arial, sans-serif;
@@ -70,7 +69,13 @@
     background-color: #f1f1f1;
   }
 </style>
+<html>
+<head>
+    <title><?php echo $event['eventname']; ?></title>
+</head>
 <body>
-    
+    <h1><?php echo $event['eventname']; ?></h1>
+    <p><?php echo $event['description']; ?></p>
+    <button onclick="window.history.back()">ย้อนกลับ</button>
 </body>
 </html>

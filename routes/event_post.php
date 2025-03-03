@@ -1,3 +1,0 @@
-<?php
-$events = getAllEvents();
-?>

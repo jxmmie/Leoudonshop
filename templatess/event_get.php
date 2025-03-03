@@ -1,9 +1,5 @@
 <?php
-
-
-
-
-$events = getAllEvents(); // เรียกใช้ฟังก์ชัน getAllEvents()
+$events = $data['events'];
 ?>
 
 <!DOCTYPE html>
@@ -77,16 +73,14 @@ $events = getAllEvents(); // เรียกใช้ฟังก์ชัน ge
 
         /* กล่องสี่เหลี่ยม */
         .grid-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            /* สร้าง 3 คอลัมน์เท่ากัน */
-            gap: 20px;
-            /* ระยะห่างระหว่างกล่อง */
-            padding: 20px;
-            /* ระยะห่างจากขอบ */
-            justify-items: center;
-            /* จัดให้ปุ่มอยู่ตรงกลาง */
-        }
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        padding: 20px;
+        justify-items: center;
+        max-height: 720px; /* กำหนดความสูงสูงสุด */
+         overflow-y: auto; /* เพิ่มแถบเลื่อนแนวตั้ง */
+}
 
         .grid-item {
             background-color: #ccc;
@@ -138,24 +132,29 @@ $events = getAllEvents(); // เรียกใช้ฟังก์ชัน ge
 }
     </style>
 </head>
-
 <body>
     <div class="grid-container">
         <?php if (!empty($events)): ?>
             <?php foreach ($events as $event): ?>
-                <div class="grid-item">
-                    <h3><?php echo $event['eventname']; ?></h3>
-             
-                    <span class="like-count"></span>
-                    <span class="heart-icon">♡</span>
-                </div>
+                <form method="POST" action="/detail">
+                    <input type="hidden" name="event_name" value="<?php echo htmlspecialchars($event['eventname']); ?>">
+                    <input type="hidden" name="eid" value="<?php echo htmlspecialchars($event['eid']); ?>">
+                    <button type="submit" class="grid-item">
+                        <h3><?php echo htmlspecialchars($event['eventname']); ?></h3>
+                        <span class="like-count"></span>
+                        <span class="heart-icon">♡</span>
+                    </button>
+                </form>
             <?php endforeach; ?>
         <?php else: ?>
             <p>ไม่มีข้อมูลกิจกรรม</p>
         <?php endif; ?>
-        
     </div>
-    <button class="back-button">ย้อนกลับ</button>
+
+    <button class="back-button" onclick="window.history.back();">ย้อนกลับ</button>
 </body>
+
+
+
 
 </html>
