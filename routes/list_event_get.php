@@ -1,3 +1,3 @@
 <?php
-// echo 'HomePage Work!!!';
-renderView('list_event_get');
+
+renderView('list_event_get', ['participants' => $participants]);

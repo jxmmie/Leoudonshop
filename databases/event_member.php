@@ -24,7 +24,10 @@ function isMemberExist($uid, $eid) {
 
 function getParticipants($eid) {
     $conn = getConnection();
-    $sql = "SELECT e.uid, u.name FROM event e INNER JOIN users u ON e.uid = u.uid WHERE e.eid = ?";
+    $sql = "SELECT u.l_name,u.f_name, en.status, en.uid, en.eid, joindate
+              FROM user u
+              INNER JOIN event_members en ON u.uid = en.uid
+              WHERE en.eid = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $eid);
     $stmt->execute();
