@@ -12,7 +12,7 @@ $uid =  $_SESSION['uid'];
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #6a11cb, #2575fc);
+            background: linear-gradient(to right,rgb(120, 106, 136),rgb(91, 110, 141));
             margin: 0;
             padding: 0;
             display: flex;
