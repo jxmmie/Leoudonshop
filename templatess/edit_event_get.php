@@ -196,25 +196,26 @@ if (isset($_GET['eid'])) {
         <button class="button">ย้อนกลับ</button>
     </div>
     <div class="right-panel">
-        <form action="/edit_event" method="post">
-            <div class="form-group">
-                <label for="activityName">ชื่อกิจกรรม</label>
-                <input type="text" id="activityName" name="eventname" placeholder="ตั้งชื่อกิจกรรมของคุณ" value="<?php echo $activityName; ?>">
-            </div>
-            <div class="form-group">
-                <label for="activityDetails">รายละเอียดกิจกรรม</label>
-                <textarea id="activityDetails" name="description" placeholder="รายละเอียดกิจกรรม"><?php echo $activityDetails; ?></textarea>
-            </div>
-            <div class="form-group">
-                <label for="participants">จำนวนผู้เข้าร่วม</label>
-                <input type="number" id="participants" name="max_participants" placeholder="จำนวนผู้เข้าร่วม" value="<?php echo $participants; ?>">
-            </div>
-            <div class="form-group">
-                <label for="date">วัน/เดือน/ปี</label>
-                <input type="date" id="date" name="createdate" value="<?php echo $date; ?>">
-            </div>
-            <button class="button" type="submit">บันทึกการแก้ไข</button>
-        </form>
+    <form action="/edit_event" method="post">
+    <input type="hidden" name="eid" value="<?php echo $eid; ?>">
+    <div class="form-group">
+        <label for="activityName">ชื่อกิจกรรม</label>
+        <input type="text" id="activityName" name="eventname" placeholder="ตั้งชื่อกิจกรรมของคุณ" value="<?php echo $activityName; ?>">
+    </div>
+    <div class="form-group">
+        <label for="activityDetails">รายละเอียดกิจกรรม</label>
+        <textarea id="activityDetails" name="description" placeholder="รายละเอียดกิจกรรม"><?php echo $activityDetails; ?></textarea>
+    </div>
+    <div class="form-group">
+        <label for="participants">จำนวนผู้เข้าร่วม</label>
+        <input type="number" id="participants" name="max_participants" placeholder="จำนวนผู้เข้าร่วม" value="<?php echo $participants; ?>">
+    </div>
+    <div class="form-group">
+        <label for="date">วัน/เดือน/ปี</label>
+        <input type="date" id="date" name="createdate" value="<?php echo $date; ?>">
+    </div>
+    <button class="button" type="submit">บันทึกการแก้ไข</button>
+</form>
         <button class="delete-button">ลบกิจกรรม</button>
     </div>
 </div>

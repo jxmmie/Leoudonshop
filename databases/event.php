@@ -40,11 +40,14 @@ function getUserEvents($uid) {
 
 function updateEvent($eid, $eventname, $max_participants, $description, $imageurl, $statusevent) {
     $conn = getConnection();
-    $sql = "UPDATE event SET eventname=?, max_participants=?, description=?, imageurl=?, statusevent=? WHERE eid=?";
+    $sql = "UPDATE event SET  eventname=?, max_participants=?, description=?, imageurl=?, statusevent=? WHERE eid=?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sisssi", $eventname, $max_participants, $description, $imageurl, $statusevent, $eid);
+    $stmt->bind_param("sisssi",  $eventname, $max_participants, $description, $imageurl, $statusevent, $eid);
     return $stmt->execute();
 }
+
+
+
 
 function deleteEvent($eid) {
     $conn = getConnection();

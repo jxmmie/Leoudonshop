@@ -23,12 +23,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $eid = $_POST['eid']; // รับ eid จาก form
 
-    $eventname = $_POST['activityName'];
-    $max_participants = $_POST['participants'];
-    $description = $_POST['activityDetails'];
+    $eventname = $_POST['eventname'];
+    $max_participants = $_POST['max_participants'];
+    $description = $_POST['description'];
     $imageurl = 'default.jpg'; // แทนที่ด้วย imageurl ที่ถูกต้อง
     $statusevent = 'active';
-    $createdate = $_POST['date'];
+    $createdate = $_POST['createdate'];
 
     $result = updateEvent($eid, $eventname, $max_participants, $description, $imageurl, $statusevent, $createdate);
 
@@ -44,3 +44,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     echo $data['alert'];
 }
 ?>
+
