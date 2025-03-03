@@ -54,6 +54,8 @@ function getUserByEmail($email) {
 
 function logout():void
 {
+    unset($_SESSION['uid']);
+    unset($_SESSION['eid']);
     unset($_SESSION['timestamp']);
 }
 
