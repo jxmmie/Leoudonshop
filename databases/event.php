@@ -19,7 +19,7 @@ function getEventById($eid) {
 
 function createEvent($uid, $eventname, $max_participants, $description, $imageurl, $statusevent) {
     $conn = getConnection();
-    $sql = "INSERT INTO event (uid, createdate, eventname, max_participants, description, imageurl, statusevent) 
+    $sql = "INSERT INTO event (uid, date, eventname, max_participants, description, imageurl, statusevent) 
             VALUES (?, NOW(), ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("isisss", $uid, $eventname, $max_participants, $description, $imageurl, $statusevent);

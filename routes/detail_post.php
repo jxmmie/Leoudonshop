@@ -7,9 +7,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // เรียกใช้ฟังก์ชัน
     if (createEventmember($uid, $eid)) {
-        echo "สมาชิกถูกเพิ่มเข้าสู่กิจกรรมเรียบร้อยแล้ว!";
+       
+        echo "<script>alert('สมาชิกถูกเพิ่มเข้าสู่กิจกรรมเรียบร้อยแล้ว!'); window.location.href='/event_user';</script>";
     } else {
-        echo "สมาชิกนี้ได้ถูกเพิ่มไปยังกิจกรรมนี้แล้ว!";
+        echo "<script>alert('สมัครไปแล้ววว!'); window.location.href='/event_user';</script>";
     }
 }
 ?>
