@@ -1,7 +1,14 @@
 <?php
-$events = $data['events'];
-$search = $data['search'];
+// ตรวจสอบว่า $data['events'] มีข้อมูลหรือไม่ และเป็น array
+$events = isset($data['events']) && is_array($data['events']) ? $data['events'] : [];
 
+// รับค่าคำค้นหาจาก URL (ถ้ามี)
+$search = isset($_GET['search']) ? $_GET['search'] : '';
+
+// หากไม่มีข้อมูลกิจกรรม ให้ตั้งค่า $events เป็น array ว่าง
+if (empty($events)) {
+    $events = [];
+}
 ?>
 
 <!DOCTYPE html>
@@ -40,26 +47,21 @@ $search = $data['search'];
         /* เมนูเลื่อนลง */
         .dropdown-container {
             position: relative;
-            /* เพิ่ม container สำหรับ dropdown */
         }
 
         .dropdown-menu {
             display: none;
-            /* ซ่อนเมนูเริ่มต้น */
             position: absolute;
             background-color: #f9f9f9;
             min-width: 160px;
             box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
             z-index: 1;
             right: 0;
-            /* ปรับตำแหน่งเมนูให้อยู่ด้านขวา */
             top: 100%;
-            /* ปรับตำแหน่งเมนูให้อยู่ใต้แถบนำทาง */
         }
 
         .dropdown-container:hover .dropdown-menu {
             display: block;
-            /* แสดงเมนูเมื่อ hover ที่ container */
         }
 
         .dropdown-menu a {
@@ -75,78 +77,73 @@ $search = $data['search'];
 
         /* กล่องสี่เหลี่ยม */
         .grid-container {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-        padding: 20px;
-        justify-items: center;
-        max-height: 720px; /* กำหนดความสูงสูงสุด */
-         overflow-y: auto; /* เพิ่มแถบเลื่อนแนวตั้ง */
-}
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 20px;
+            justify-items: center;
+            max-height: 720px;
+            overflow-y: auto;
+        }
 
         .grid-item {
             background-color: #ccc;
-            /* สีพื้นหลังกล่อง */
             padding: 20px;
             text-align: center;
             width: 300px;
-            /* กำหนดความกว้าง */
             height: 300px;
-            /* กำหนดความสูง */
             border-radius: 5px;
-            /* ทำให้ขอบกล่องโค้งมน */
-            transition: transform 0.3s ease; /* เพิ่ม transition */
+            transition: transform 0.3s ease;
         }
 
         .grid-item:hover {
-            transform: scale(1.05); /* ขยายขนาดเมื่อ hover */
+            transform: scale(1.05);
         }
 
-        /* เพิ่มสไตล์สำหรับไอคอนหัวใจและตัวเลข */
+        /* เพิ่มสไตล์สำหรับไอคอนหัวใจ */
         .grid-item .heart-icon {
             float: right;
-            /* จัดไอคอนหัวใจไปทางขวา */
         }
 
         .grid-item .like-count {
             float: right;
-            /* จัดตัวเลขไปทางขวา */
             margin-right: 5px;
-            /* ระยะห่างระหว่างตัวเลขกับไอคอน */
         }
-        .back-button {
-    background-color: #333;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-    transition: background-color 0.3s ease;
-    position: fixed; /* เปลี่ยนเป็น position: fixed; */
-    left: 20px; /* ปรับตำแหน่งชิดซ้ายของ viewport */
-    bottom: 20px; /* ปรับตำแหน่งชิดด้านล่างของ viewport */
-}
 
-.back-button:hover {
-    background-color: #555;
-}
+        .back-button {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease;
+            position: fixed;
+            left: 20px;
+            bottom: 20px;
+        }
+
+        .back-button:hover {
+            background-color: #555;
+        }
     </style>
 </head>
+
 <body>
-<nav>
+    <nav>
         <div class="nav-left">
             <span class="nav-item"><a href="/event">กิจกรรม</a></span>
         </div>
         <div class="nav-right">
-                    <form method="GET" action="/event">
-                        <div class="search-box">
-                            <input type="text" name="search" id="search" placeholder="ค้นหา..." value="<?php echo htmlspecialchars($search); ?>">
-                            <span class="search-icon">🔍</span>
-                        </div>
-                    </form>
-            <span class="notification-icon">🔔</span>
+            <form class="search-box" method="GET" action="/event">
+                <input type="text" name="search" placeholder="ค้นหา..." value="<?php echo htmlspecialchars($search); ?>">
+                <button type="submit" class="search-icon"></button>
+              
+            </form>
+             
+            <span class="notification-icon"></span>
             <div class="dropdown-container">
                 <span class="menu-icon">☰</span>
                 <div class="dropdown-menu">
@@ -159,22 +156,6 @@ $search = $data['search'];
             </div>
         </div>
     </nav>
-    <script>
-    document.getElementById("search").addEventListener("input", function() {
-        const searchValue = this.value;
-        const urlParams = new URLSearchParams(window.location.search);
-        urlParams.set("search", searchValue);
-        window.history.replaceState({}, "", "?" + urlParams.toString());
-
-        fetch(window.location.pathname + "?" + urlParams.toString())
-            .then(response => response.text())
-            .then(html => {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, "text/html");
-                document.querySelector(".grid-container").innerHTML = doc.querySelector(".grid-container").innerHTML;
-            });
-    });
-</script>
 
     <div class="grid-container">
         <?php if (!empty($events)): ?>
@@ -197,7 +178,4 @@ $search = $data['search'];
     <button class="back-button" onclick="window.history.back();">ย้อนกลับ</button>
 </body>
 
-
-
-
-</html>
+</html

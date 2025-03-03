@@ -7,6 +7,7 @@ if($result){
     $_SESSION['timestamp'] = $unix_timestamp;
     $_SESSION['uid'] = $result['uid'];
     $events = getAllEvents();
+    
     renderView('event_get',['events' => $events]);
 }else{
     $_SESSION['message'] = 'Email or Password invalid';

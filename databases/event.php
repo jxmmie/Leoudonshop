@@ -53,12 +53,16 @@ function deleteEvent($eid) {
     $stmt->bind_param("i", $eid);
     return $stmt->execute();
 }
-function searchEvents($search) {
+function searchEvents(string $keyword): mysqli_result|bool
+{
     $conn = getConnection();
-    $search = "%" . $search . "%"; // เพิ่ม Wildcard
-    $sql = "SELECT * FROM event WHERE eventname LIKE ?";
-    $stmt = $conn->prepare($sql); // สมมติว่า $this->pdo เป็น PDO object
-    $stmt->execute([$search]);
-    return $stmt->execute();
+    $sql = 'SELECT * FROM event WHERE eventname LIKE ?';
+    $stmt = $conn->prepare($sql);
+    $keyword = '%' . $keyword . '%'; // เพิ่มเครื่องหมาย % ก่อนและหลังคำค้นหา
+    $stmt->bind_param('s', $keyword);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result; // คืนค่าผลลัพธ์
 }
+
 ?>
