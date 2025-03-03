@@ -87,7 +87,7 @@ $uid =  $_SESSION['uid'];
         <form action="/detail" method="post" >
                         <input type="hidden" name="uid" value="<?= $uid ?>">
                         <input type="hidden" name="eid" value="<?= $event['eid'] ?>">
-                        <button type="submit" name="enroll" class="btn btn-primary">ลงทะเบียน</button>
+                        <button type="submit" name="enroll" class="btn btn-primary">เข้าร่วม</button>
                     </form>
         <a href="/event" class="back-link"><i class="fas fa-arrow-left"></i> กลับไปยังรายการกิจกรรม</a>
     </div>
