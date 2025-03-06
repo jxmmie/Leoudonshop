@@ -1,6 +1,7 @@
 <?php
 $event = $data['event'];
 $uid =  $_SESSION['uid'];
+$ch = $chk;
 ?>
 <!DOCTYPE html>
 <html lang="th">
@@ -106,11 +107,21 @@ $uid =  $_SESSION['uid'];
                 <p>📷 ไม่มีรูปภาพกิจกรรม</p>
             <?php endif; ?>
         </div>
-        <form action="/detail" method="post" >
-            <input type="hidden" name="uid" value="<?= $uid ?>">
-            <input type="hidden" name="eid" value="<?= $event['eid'] ?>">
-            <button type="submit" name="enroll" class="btn-enroll">เข้าร่วมกิจกรรม</button>
+       
+        <?php if ($event['uid'] == $uid): ?>
+            <button type="submit" name="enroll" class="btn-enroll"><a href='/edit_event?eid=<?php echo $event['eid']; ?>' class="signup-link">แก้ไขกิจกรรม</a></button>
         </form>
+                <?php else: ?>
+                    <form action="/detail" method="post" >
+                    <input type="hidden" name="uid" value="<?= $uid ?>">
+                    <input type="hidden" name="eid" value="<?= $event['eid'] ?>">
+                    <?php if ($ch): ?>
+                        <button type="submit" name="enroll" class="button-disabled">เข้าร่วมกิจกรรม</button>
+                        <?php else: ?>
+                            <button type="submit" name="enroll" class="btn-enroll">เข้าร่วมกิจกรรม</button>
+                        <?php endif; ?>
+        </form>
+            <?php endif; ?>
         <a href="/event" class="back-link"><i class="fas fa-arrow-left"></i> กลับไปยังรายการกิจกรรม</a>
     </div>
 </body>
