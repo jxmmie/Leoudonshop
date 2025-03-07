@@ -1,9 +1,11 @@
 <?php
 // ตรวจสอบว่า $data['events'] มีข้อมูลหรือไม่ และเป็น array
-$search = isset($_GET['search']) ? $_GET['search'] : '';
-$events = isset($data['events']) && is_array($data['events']) ? $data['events'] : [];
-// รับค่าคำค้นหาจาก URL (ถ้ามี)
 
+$search = isset($data['search']) ? $data['search'] : '';
+$events = isset($data['events']) && is_array($data['events']) ? $data['events'] : [];
+// รับค่าคำค้นหาจาก $data (ถ้ามี)
+$startDate = isset($data['startDate']) ? $data['startDate'] : '';
+$endDate = isset($data['endDate']) ? $data['endDate'] : '';
 ?>
 
 <!DOCTYPE html>
@@ -138,12 +140,12 @@ $events = isset($data['events']) && is_array($data['events']) ? $data['events'] 
             <span class="nav-item"><a href="/event">กิจกรรม</a></span>
         </div>
         <div class="nav-right">
-            <form class="search-box" method="GET" action="/event">
+        <form class="search-box" method="GET" action="/event">
                 <input type="text" name="search" placeholder="ค้นหา..." value="<?php echo htmlspecialchars($search); ?>">
-                <button type="submit" class="search-icon"></button>
+                <input type="date" name="startDate" value="<?php echo htmlspecialchars($startDate); ?>">
+                <input type="date" name="endDate" value="<?php echo htmlspecialchars($endDate); ?>">
+                <button type="submit">ค้นหา</button>
             </form>
-
-            <span class="notification-icon"></span>
             <div class="dropdown-container">
                 <span class="menu-icon">☰</span>
                 <div class="dropdown-menu">
@@ -158,7 +160,7 @@ $events = isset($data['events']) && is_array($data['events']) ? $data['events'] 
     </nav>
 
     <div class="grid-container">
-        <?php if (!empty($events) || !empty($search)): ?>
+        <?php if (!empty($events)): ?>
             <?php foreach ($events as $event): ?>
                 <form method="POST" action="/event">
                     <input type="hidden" name="event_name" value="<?php echo htmlspecialchars($event['eventname']); ?>">
@@ -169,8 +171,6 @@ $events = isset($data['events']) && is_array($data['events']) ? $data['events'] 
                             <img src="<?php echo htmlspecialchars($event['image']); ?>" alt="Event Image">
                         <?php endif; ?>
                         <h3><?php echo htmlspecialchars($event['eventname']); ?></h3>
-                        <span class="like-count"></span>
-                        <span class="heart-icon">♡</span>
                     </button>
                 </form>
             <?php endforeach; ?>
@@ -178,7 +178,7 @@ $events = isset($data['events']) && is_array($data['events']) ? $data['events'] 
             <p>ไม่มีข้อมูลกิจกรรม</p>
         <?php endif; ?>
     </div>
-
 </body>
+
 
 </html>

@@ -16,6 +16,31 @@ function getEventById($eid) {
     $result = $stmt->get_result();
     return $result->fetch_assoc();
 }
+function searchEvent(string $search, $startDate = null, $endDate = null): array
+{
+    $conn = getConnection();
+    $sql = "SELECT * FROM event WHERE eventname LIKE ?";
+    $params = [];
+    $types = "s";
+    
+    // เพิ่ม wildcard (%) เพื่อให้ค้นหาได้ถูกต้อง
+    $search = "%" . $search . "%";
+    $params[] = $search;
+
+    if (!empty($startDate) && !empty($endDate)) {
+        $sql .= " AND date BETWEEN ? AND ?";
+        $params[] = $startDate;
+        $params[] = $endDate;
+        $types .= "ss";
+    }
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param($types, ...$params);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
 
 function createEvent($uid, $eventname, $max_participants, $description, $image, $statusevent, $date) {
     $conn = getConnection();

@@ -5,7 +5,7 @@
     $eid = isset($_POST['eid']) ? $_POST['eid'] : $_GET['eid'];
     $_SESSION['mes'] = $_POST['uid'];
     // เรียกฟังก์ชัน getEventById เพื่อดึงข้อมูล
-    $event = getEventById($eid);
+  $event = getEventById($eid);
     $chk = isMemberExist($_SESSION['mes'], $eid);
     if ($event) {
         // ถ้ามีข้อมูลกิจกรรม
