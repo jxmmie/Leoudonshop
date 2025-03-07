@@ -1,8 +1,8 @@
 <?php
 $event = $data['event'];
 $uid =  $_SESSION['uid'];
-
 ?>
+
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -39,13 +39,16 @@ $uid =  $_SESSION['uid'];
             color: #555;
             margin: 8px 0;
         }
-        .event-image img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            margin-top: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
+        .event-images img {
+    width: 20%;
+    height: 200px; /* กำหนดความสูงที่เท่ากัน */
+    object-fit: cover; /* ปรับรูปภาพให้เต็มกรอบโดยไม่เสียสัดส่วน */
+    border-radius: 8px;
+    margin-top: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+
         .back-link {
             display: flex;
             align-items: center;
@@ -108,9 +111,6 @@ $uid =  $_SESSION['uid'];
             transition: 0.3s;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
-
-
-
     </style>
 </head>
 <body>
@@ -124,9 +124,14 @@ $uid =  $_SESSION['uid'];
         <p><strong>🔵 สถานะกิจกรรม:</strong> <?php echo htmlspecialchars($event['statusevent']); ?></p>
     </div>
 
-    <div class="event-image">
-        <?php if (!empty($event['imageurl'])): ?>
-            <img src="<?php echo htmlspecialchars($event['imageurl']); ?>" alt="Event Image">
+    <!-- แสดงหลายๆ รูปภาพ -->
+    <div class="event-images">
+        <?php
+        $images = getEventImages($event['eid']); // ดึงข้อมูลรูปภาพจากฐานข้อมูล
+        if (!empty($images)): ?>
+            <?php foreach ($images as $image): ?>
+                <img src="<?php echo htmlspecialchars($image); ?>" alt="Event Image">
+            <?php endforeach; ?>
         <?php else: ?>
             <p>📷 ไม่มีรูปภาพกิจกรรม</p>
         <?php endif; ?>
@@ -153,7 +158,5 @@ $uid =  $_SESSION['uid'];
 
     <a href="/event" class="back-link"><i class="fas fa-arrow-left"></i> กลับไปยังรายการกิจกรรม</a>
 </div>
-
-
 </body>
 </html>

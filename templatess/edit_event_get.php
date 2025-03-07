@@ -209,7 +209,10 @@ $event = $data['event'];
                         <input type="hidden" name="eid" value="<?= $event['eid'] ?>">
                         <button type="submit" name="enroll" class="btn btn-primary">ผู้เข้าร่วมกิจกรรม</button>
                     </form>
-        <button class="delete-button">ลบกิจกรรม</button>
+                    <form action="/delete_event" method="post" onsubmit="return confirm('คุณแน่ใจหรือไม่ว่าต้องการลบกิจกรรมนี้?');">
+            <input type="hidden" name="eid" value="<?php echo $event['eid']; ?>">
+            <button type="submit" name="delete" class="delete-button">ลบกิจกรรม</button>
+        </form>
     </div>
 </div>
 

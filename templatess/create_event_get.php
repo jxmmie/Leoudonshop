@@ -153,7 +153,7 @@
             <!-- แก้ไข: เพิ่ม enctype="multipart/form-data" -->
             <form id="activityForm" action="/create_event" method="post" enctype="multipart/form-data">
                 <div class="form-group">
-                    <input type="file" id="image" name="image" accept="image/*" required>
+                    <input type="file" name="images[]" id="images" multiple>
                 </div>
                 <div class="form-group">
                     <label for="activityName">ชื่อกิจกรรม</label>
