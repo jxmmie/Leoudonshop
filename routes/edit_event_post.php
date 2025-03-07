@@ -7,7 +7,7 @@
     $eventname = $_POST['eventname'];
     $max_participants = $_POST['max_participants'];
     $description = $_POST['description'];
-    $imageurl = 'default.jpg'; // แทนที่ด้วย imageurl ที่ถูกต้อง
+    $image = 'default.jpg'; // แทนที่ด้วย imageurl ที่ถูกต้อง
     $statusevent = 'active';
     $date = $_POST['date'];
 

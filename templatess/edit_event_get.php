@@ -8,7 +8,7 @@ $event = $data['event'];
         $activityDetails = $event['description'];
         $participants = $event['max_participants'];
         $date = $event['date'];
-        $imagePath = $event['imageurl'];
+        $imagePath = $event['image'];
     }
 ?>
 <!DOCTYPE html>
