@@ -105,6 +105,12 @@ $events = isset($data['events']) && is_array($data['events']) ? $data['events'] 
             margin-right: 5px;
         }
 
+        .grid-item img {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 5px;
+        }
+
         .back-button {
             background-color: #333;
             color: white;
@@ -135,9 +141,8 @@ $events = isset($data['events']) && is_array($data['events']) ? $data['events'] 
             <form class="search-box" method="GET" action="/event">
                 <input type="text" name="search" placeholder="ค้นหา..." value="<?php echo htmlspecialchars($search); ?>">
                 <button type="submit" class="search-icon"></button>
-              
             </form>
-             
+
             <span class="notification-icon"></span>
             <div class="dropdown-container">
                 <span class="menu-icon">☰</span>
@@ -153,25 +158,27 @@ $events = isset($data['events']) && is_array($data['events']) ? $data['events'] 
     </nav>
 
     <div class="grid-container">
-        <?php if (!empty($events)||!empty($search)): ?>
+        <?php if (!empty($events) || !empty($search)): ?>
             <?php foreach ($events as $event): ?>
                 <form method="POST" action="/event">
                     <input type="hidden" name="event_name" value="<?php echo htmlspecialchars($event['eventname']); ?>">
                     <input type="hidden" name="eid" value="<?php echo htmlspecialchars($event['eid']); ?>">
                     <input type="hidden" name="uid" value="<?php echo htmlspecialchars($event['uid']); ?>">
                     <button type="submit" class="grid-item">
+                        <?php if (!empty($event['image'])): ?>
+                            <img src="<?php echo htmlspecialchars($event['image']); ?>" alt="Event Image">
+                        <?php endif; ?>
                         <h3><?php echo htmlspecialchars($event['eventname']); ?></h3>
                         <span class="like-count"></span>
                         <span class="heart-icon">♡</span>
                     </button>
                 </form>
             <?php endforeach; ?>
-            <?php else: ?>
-                <p>ไม่มีข้อมูลกิจกรรม</p>
+        <?php else: ?>
+            <p>ไม่มีข้อมูลกิจกรรม</p>
         <?php endif; ?>
     </div>
 
-   
 </body>
 
-</html
+</html>
