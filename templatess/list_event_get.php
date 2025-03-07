@@ -85,15 +85,25 @@ $participants = $data['participants'];
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while ($row = $participants->fetch_assoc()): ?>
-                        <tr>
-                            <td><?php echo htmlspecialchars($row['f_name']); ?></td>
-                            <td><?php echo htmlspecialchars($row['l_name']); ?></td>
-                            <td><?php echo htmlspecialchars($row['joindate']); ?></td>
-                            <td><?php echo htmlspecialchars($row['status']); ?></td>
-                        </tr>
-                    <?php endwhile; ?>
-                </tbody>
+    <?php while ($row = $participants->fetch_assoc()): ?>
+        <tr>
+            <td><?php echo htmlspecialchars($row['f_name']); ?></td>
+            <td><?php echo htmlspecialchars($row['l_name']); ?></td>
+            <td><?php echo htmlspecialchars($row['joindate']); ?></td>
+            <td><?php echo htmlspecialchars($row['status']); ?></td>
+            <td>
+                <form action="/status" method="post">
+
+                    <input type="radio" name="status" value="approved" <?php echo ($row['status'] === 'approved') ? 'checked' : ''; ?>> อนุมัติ
+                    <input type="radio" name="status" value="denied" <?php echo ($row['status'] === 'denied') ? 'checked' : ''; ?>> ยกเลิก
+                  
+                    
+                    <button type="submit">บันทึก</button>
+                </form>
+            </td>
+        </tr>
+    <?php endwhile; ?>
+</tbody>
             </table>
         </div>
     <?php elseif (isset($eid)): ?>

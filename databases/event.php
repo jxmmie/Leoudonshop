@@ -177,4 +177,11 @@ function getEventImages($eventId) {
     return $images;
 }
 
+function updateParticipantStatus($emid, $status) {
+    $conn = getConnection();
+    $sql = "UPDATE event_members SET status = ? WHERE emid = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("si", $status, $emid);
+    return $stmt->execute();
+}
 ?>
