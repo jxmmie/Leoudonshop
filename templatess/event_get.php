@@ -158,6 +158,7 @@ $events = isset($data['events']) && is_array($data['events']) ? $data['events'] 
                 <form method="POST" action="/event">
                     <input type="hidden" name="event_name" value="<?php echo htmlspecialchars($event['eventname']); ?>">
                     <input type="hidden" name="eid" value="<?php echo htmlspecialchars($event['eid']); ?>">
+                    <input type="hidden" name="uid" value="<?php echo htmlspecialchars($event['uid']); ?>">
                     <button type="submit" class="grid-item">
                         <h3><?php echo htmlspecialchars($event['eventname']); ?></h3>
                         <span class="like-count"></span>

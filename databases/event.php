@@ -17,14 +17,15 @@ function getEventById($eid) {
     return $result->fetch_assoc();
 }
 
-function createEvent($uid, $eventname, $max_participants, $description, $imageurl, $statusevent) {
+function createEvent($uid, $eventname, $max_participants, $description, $image, $statusevent, $date) {
     $conn = getConnection();
-    $sql = "INSERT INTO event (uid, date, eventname, max_participants, description, imageurl, statusevent) 
-            VALUES (?, NOW(), ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO event (uid, date, eventname, max_participants, description, image, statusevent) 
+            VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("isisss", $uid, $eventname, $max_participants, $description, $imageurl, $statusevent);
+    $stmt->bind_param("issssss", $uid, $date, $eventname, $max_participants, $description, $image, $statusevent);
     return $stmt->execute();
 }
+
 function getUserEvents($uid) {
     $conn = getConnection();
     $sql = "SELECT * FROM event WHERE uid = ?";

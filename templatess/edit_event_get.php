@@ -1,26 +1,15 @@
 <?php
 // ฟังก์ชัน getEventById()
-
+$event = $data['event'];
 
 // ตรวจสอบว่ามี eid ใน URL หรือไม่
-if (isset($_GET['eid'])) {
-    $eid = $_GET['eid'];
-    $event = getEventById($eid); // เรียกใช้ฟังก์ชันดึงข้อมูล
-
     if ($event) {
         $activityName = $event['eventname'];
         $activityDetails = $event['description'];
         $participants = $event['max_participants'];
         $date = $event['date'];
         $imagePath = $event['imageurl'];
-
-        // ... แสดงผลในฟอร์ม ...
-    } else {
-        echo "ไม่พบกิจกรรม";
     }
-} else {
-    echo "ไม่ได้รับ eid";
-}
 ?>
 <!DOCTYPE html>
 <html>
@@ -197,7 +186,7 @@ if (isset($_GET['eid'])) {
     </div>
     <div class="right-panel">
     <form action="/edit_event" method="post">
-    <input type="hidden" name="eid" value="<?php echo $eid; ?>">
+    <input type="hidden" name="eid" value="<?php echo $event['eid']; ?>">
     <div class="form-group">
         <label for="activityName">ชื่อกิจกรรม</label>
         <input type="text" id="activityName" name="eventname" placeholder="ตั้งชื่อกิจกรรมของคุณ" value="<?php echo $activityName; ?>">

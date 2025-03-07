@@ -1,5 +1,3 @@
-
-
 <style>
  body {
     font-family: Arial, sans-serif;
@@ -145,23 +143,25 @@
     background-color: #f1f1f1;
   }
 </style>
+
 <body>
     <div class="container" style="margin-top: 60px;">
         <div class="left-panel">
-            <div class="image-upload-box">
-                <img src="your-image.png" alt="Upload Image">
-            </div>
-             <button class="button" onclick="window.history.back();">ย้อนกลับ</button>
+            <button class="button" onclick="window.history.back();">ย้อนกลับ</button>
         </div>
         <div class="right-panel">
-            <form id="activityForm" action="/create_event" method="post">
+            <!-- แก้ไข: เพิ่ม enctype="multipart/form-data" -->
+            <form id="activityForm" action="/create_event" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="file" id="image" name="image" accept="image/*" required>
+                </div>
                 <div class="form-group">
                     <label for="activityName">ชื่อกิจกรรม</label>
                     <input type="text" id="activityName" name="activityName" placeholder="ตั้งชื่อกิจกรรมของคุณ" required>
                 </div>
                 <div class="form-group">
                     <label for="activityDetails">รายละเอียดกิจกรรม</label>
-                    <textarea id="activityDetails" name="activityDetails" placeholder="รายละเอียดกิจกรรม"required></textarea >
+                    <textarea id="activityDetails" name="activityDetails" placeholder="รายละเอียดกิจกรรม" required></textarea>
                 </div>
                 <div class="form-group">
                     <label for="participants">จำนวนผู้เข้าร่วม</label>
@@ -169,10 +169,9 @@
                 </div>
                 <div class="form-group">
                     <label for="date">วัน/เดือน/ปี ที่สิ้นสุด</label>
-                    <input type="date" id="date" name="date" require>
+                    <input type="date" id="date" name="date" required>
                 </div>
-                <button class="button" type="submit" form="activityForm">สร้างกิจกรรม</button>
-                
+                <button class="button" type="submit">สร้างกิจกรรม</button>
             </form>
         </div>
     </div>

@@ -1,9 +1,5 @@
 <?php
  function createEventmember($uid, $eid) {
-    if (isMemberExist($uid, $eid)) {
-        return false; // ถ้ามีสมาชิกซ้ำแล้วจะไม่เพิ่ม
-    }
-
     $conn = getConnection();
     $sql = "INSERT INTO event_members (uid, eid) VALUES (?, ?)";
     $stmt = $conn->prepare($sql);
@@ -19,8 +15,11 @@ function isMemberExist($uid, $eid) {
     $stmt->execute();
     $stmt->bind_result($count);
     $stmt->fetch();
-    return $count > 0;
+    $stmt->close();
+    $conn->close();
+    return $count > 0 ? true : false;
 }
+
 
 function getParticipants($eid) {
     $conn = getConnection();

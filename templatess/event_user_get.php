@@ -135,9 +135,10 @@ $events = getUserEvents($uid);
     <div class="grid-container">
         <?php if (!empty($events)): ?>
             <?php foreach ($events as $event): ?>
-              <div class="grid-item" onclick="window.location.href='/edit_event?eid=<?php echo $event['eid']; ?>';">
-                <h3><?php echo htmlspecialchars($event['eventname']); ?></h3>
-            </div>
+              <div class="grid-item" onclick="window.location.href='/edit_event?eid=<?php echo htmlspecialchars($event['eid']); ?>';">
+    <h3><?php echo htmlspecialchars($event['eventname']); ?></h3>
+</div>  
+
             <?php endforeach; ?>
         <?php else: ?>
             <p>ไม่มีข้อมูลกิจกรรม</p>

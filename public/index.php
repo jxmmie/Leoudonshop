@@ -7,6 +7,7 @@ const INCLUDES_DIR = __DIR__ . '/../includes';
 const ROUTE_DIR = __DIR__ . '/../routes';
 const TEMPLATES_DIR = __DIR__ . '/../templatess';
 const DATABASE_DIR = __DIR__ . '/../databases';
+const UPLOADS_DIR = __DIR__ . '/../uploads';
 
 session_start();
 
@@ -14,6 +15,7 @@ session_start();
 require_once INCLUDES_DIR . '/router.php';
 require_once INCLUDES_DIR . '/view.php';
 require_once INCLUDES_DIR . '/db.php';
+
 
 // Call dispatch to handle requests
 const PUBLIC_ROUTES = ['/', '/home'];
