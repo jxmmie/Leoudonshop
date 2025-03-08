@@ -1,24 +1,23 @@
 <?php
-// ตรวจสอบว่ามีการส่งข้อมูลจากฟอร์มหรือไม่
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['emid'])) {
-    $emid = $_POST['emid'];
+
+
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['eid'], $_POST['uid'], $_POST['status'])) {
+    $eid = $_POST['eid'];
+    $uid = $_POST['uid'];
     $status = $_POST['status'];
 
-    // เรียกใช้ฟังก์ชัน updateParticipantStatus() เพื่ออัปเดตสถานะ
-    $result = updateParticipantStatus($emid, $status);
-
-    if ($result) {
+    // เรียกใช้ฟังก์ชัน updateParticipantStatus()
+    if (updateParticipantStatus($eid, $uid, $status)) {
         // อัปเดตสำเร็จ
-        // Redirect กลับไปยังหน้า list_event_get หรือแสดงข้อความสำเร็จ
-        header("Location: /list_event_get?eid=" . $_GET['eid']); // แก้ไขตาม URL ของคุณ
+        header("Location: list_event"); // เปลี่ยนเส้นทางกลับไปหน้ารายชื่อ
         exit();
     } else {
-        // อัปเดตล้มเหลว
-        // แสดงข้อความผิดพลาด
+        // อัปเดตไม่สำเร็จ
         echo "เกิดข้อผิดพลาดในการอัปเดตสถานะ";
     }
 } else {
-    // ถ้าไม่มีการส่งข้อมูล POST หรือ emid ไม่มีค่า
-    echo "ไม่พบข้อมูลที่ส่งมา หรือ emid ไม่ถูกต้อง";
+    echo "ข้อมูลไม่ถูกต้อง";
 }
+
 ?>
