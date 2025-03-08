@@ -4,8 +4,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // รับข้อมูลจากฟอร์ม
     $uid = $_POST['uid'];
     $eid = $_POST['eid'];
-    if ( $uid ==  $_SESSION['uid']){
-        $event = getEventById($eid);
+    $event = getEventById($eid);
+    if ( $uid ==  $event['uid']){
+       
         renderView('edit_event_get',['event' => $event]); 
     } else {
         if (createEventmember($uid, $eid)) {
