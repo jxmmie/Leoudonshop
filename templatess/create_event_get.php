@@ -1,9 +1,9 @@
 <style>
- body {
+  body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f0f0f0;
+    background-color: #6e6e6e;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,13 +12,13 @@
 
   .container {
     display: flex;
-    width: 80%;
+    width: 60%;
     background-color: #333;
     color: white;
-    padding: 20px;
+    padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    height: 700px;
+    height: 500px;
   }
 
   .left-panel {
@@ -60,6 +60,37 @@
     cursor: pointer;
     background-color: #555;
     color: white;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    /* เพิ่ม transition ให้การเปลี่ยนแปลงนุ่มนวล */
+  }
+
+  .button:hover {
+    background-color: #28a745;
+    /* สีเขียวเมื่อ hover */
+    box-shadow: 0 0 10px 2px rgba(40, 167, 69, 0.7);
+    /* แวววาวสีเขียว */
+    transform: scale(1.1);
+    /* ทำให้ปุ่มขยายขึ้น 10% */
+  }
+
+  .button1 {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #555;
+    color: white;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    /* เพิ่ม transition ให้การเปลี่ยนแปลงนุ่มนวล */
+  }
+
+  .button1:hover {
+    background-color: #0056b3;
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.8);
+    /* เพิ่มแสงเรืองเมื่อ hover */
+    transform: scale(1.05);
+    /* ขยายขนาดเล็กน้อยเมื่อ hover */
   }
 
   .form-group {
@@ -71,7 +102,8 @@
     margin-bottom: 5px;
   }
 
-  .form-group input, .form-group textarea {
+  .form-group input,
+  .form-group textarea {
     width: calc(100% - 22px);
     padding: 10px;
     border: 1px solid #666;
@@ -85,7 +117,7 @@
   }
 
   /* Navbar */
- 
+
 
   .search-box {
     display: flex;
@@ -102,15 +134,16 @@
     padding: 5px;
   }
 
-  .search-icon, .clear-icon {
+  .search-icon,
+  .clear-icon {
     margin-left: 5px;
     cursor: pointer;
   }
 
-  .notification-icon, .menu-icon {
-    margin-left: 10px;
+  .notification-icon,
+  .menu-icon {
+    margin-left: 15px;
     cursor: pointer;
-    font-size: 24px;
   }
 
   .dropdown-container {
@@ -145,35 +178,36 @@
 </style>
 
 <body>
-    <div class="container" style="margin-top: 60px;">
-        <div class="left-panel">
-            <button class="button" onclick="window.history.back();">ย้อนกลับ</button>
-        </div>
-        <div class="right-panel">
-            <!-- แก้ไข: เพิ่ม enctype="multipart/form-data" -->
-            <form id="activityForm" action="/create_event" method="post" enctype="multipart/form-data">
-                <div class="form-group">
-                    <input type="file" name="images[]" id="images" multiple>
-                </div>
-                <div class="form-group">
-                    <label for="activityName">ชื่อกิจกรรม</label>
-                    <input type="text" id="activityName" name="activityName" placeholder="ตั้งชื่อกิจกรรมของคุณ" required>
-                </div>
-                <div class="form-group">
-                    <label for="activityDetails">รายละเอียดกิจกรรม</label>
-                    <textarea id="activityDetails" name="activityDetails" placeholder="รายละเอียดกิจกรรม" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="participants">จำนวนผู้เข้าร่วม</label>
-                    <input type="number" id="participants" name="participants" placeholder="จำนวนผู้เข้าร่วม" required>
-                </div>
-                <div class="form-group">
-                    <label for="date">วัน/เดือน/ปี ที่สิ้นสุด</label>
-                    <input type="date" id="date" name="date" required>
-                </div>
-                <button class="button" type="submit">สร้างกิจกรรม</button>
-            </form>
-        </div>
+  <div class="container" style="margin-top: 60px;">
+    <div class="left-panel">
+      <div class="image-upload-box">
+        <img src="your-image.png" alt="Upload Image">
+      </div>
+      <button class="button1" onclick="window.history.back();">ย้อนกลับ</button>
     </div>
+    <div class="right-panel">
+      <form id="activityForm" action="/create_event" method="post">
+        <div class="form-group">
+          <label for="activityName">ชื่อกิจกรรม</label>
+          <input type="text" id="activityName" name="activityName" placeholder="ตั้งชื่อกิจกรรมของคุณ" required>
+        </div>
+        <div class="form-group">
+          <label for="activityDetails">รายละเอียดกิจกรรม</label>
+          <textarea id="activityDetails" name="activityDetails" placeholder="รายละเอียดกิจกรรม" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="participants">จำนวนผู้เข้าร่วม</label>
+          <input type="number" id="participants" name="participants" placeholder="จำนวนผู้เข้าร่วม" required>
+        </div>
+        <div class="form-group">
+          <label for="date">วัน/เดือน/ปี ที่สิ้นสุด</label>
+          <input type="date" id="date" name="date" require>
+        </div>
+        <button class="button" type="submit" form="activityForm">สร้างกิจกรรม</button>
+
+      </form>
+    </div>
+  </div>
 </body>
+
 </html>
