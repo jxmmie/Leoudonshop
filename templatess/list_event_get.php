@@ -98,8 +98,8 @@ $participants = isset($data['participants']) ? $data['participants'] : null;
                                 <form action="/status" method="post">
                                    
                                     <select name="status">
-                                        <option value="approved">อนุมัติ</option>
-                                        <option value="cancelled">ยกเลิก</option>
+                                        <option value="อนุมัติ">อนุมัติ</option>
+                                        <option value="ยกเลิก">ยกเลิก</option>
                                     </select>
                                     <input type="hidden" name="eid" value="<?php echo $row['eid']; ?>">
                                     <input type="hidden" name="uid" value="<?php echo $row['uid']; ?>">

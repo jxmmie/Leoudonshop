@@ -187,4 +187,14 @@ function updateParticipantStatus($eid, $uid, $status) {
     $conn->close();
     return $result;
 }
+function deleteParticipant($eid, $uid) {
+    $conn = getConnection(); // เรียกใช้ฟังก์ชัน getConnection() เพื่อเชื่อมต่อฐานข้อมูล
+    $sql = "DELETE FROM event_members WHERE eid = ? AND uid = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ii", $eid, $uid);
+    $result = $stmt->execute();
+    $stmt->close();
+    $conn->close();
+    return $result;
+}
 ?>
