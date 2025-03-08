@@ -8,9 +8,6 @@ $startDate = isset($data['startDate']) ? $data['startDate'] : '';
 $endDate = isset($data['endDate']) ? $data['endDate'] : '';
 ?>
 
-<!DOCTYPE html>
-<html>
-
 <head>
     <title>กิจกรรม</title>
     <style>
@@ -160,23 +157,28 @@ $endDate = isset($data['endDate']) ? $data['endDate'] : '';
     </nav>
 
     <div class="grid-container">
-        <?php if (!empty($events)): ?>
-            <?php foreach ($events as $event): ?>
-                <form method="POST" action="/event">
-                    <input type="hidden" name="event_name" value="<?php echo htmlspecialchars($event['eventname']); ?>">
-                    <input type="hidden" name="eid" value="<?php echo htmlspecialchars($event['eid']); ?>">
-                    <input type="hidden" name="uid" value="<?php echo htmlspecialchars($event['uid']); ?>">
-                    <button type="submit" class="grid-item">
-                        <?php if (!empty($event['image'])): ?>
-                            <img src="<?php echo htmlspecialchars($event['image']); ?>" alt="Event Image">
-                        <?php endif; ?>
-                        <h3><?php echo htmlspecialchars($event['eventname']); ?></h3>
-                    </button>
-                </form>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <p>ไม่มีข้อมูลกิจกรรม</p>
-        <?php endif; ?>
+    <?php if (!empty($events)): ?>
+    <?php foreach ($events as $event): ?>
+        <form method="POST" action="/event">
+            <input type="hidden" name="event_name" value="<?php echo htmlspecialchars($event['eventname']); ?>">
+            <input type="hidden" name="eid" value="<?php echo htmlspecialchars($event['eid']); ?>">
+            <input type="hidden" name="uid" value="<?php echo htmlspecialchars($event['uid']); ?>">
+            <button type="submit" class="grid-item">
+                <?php
+                $images = getEventImages($event['eid']);
+                // ตรวจสอบว่า $images มีข้อมูลและมีอย่างน้อย 1 รูป
+                if (!empty($images) && isset($images[0])): ?>
+                    <img src="<?php echo htmlspecialchars($images[0]); ?>" alt="Event Image">     
+                <?php endif; ?>
+
+                <h3><?php echo htmlspecialchars($event['eventname']); ?></h3>
+            </button>
+        </form>
+    <?php endforeach; ?>
+<?php else: ?>
+    <p>ไม่มีข้อมูลกิจกรรม</p>
+<?php endif; ?>
+
     </div>
 </body>
 
