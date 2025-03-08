@@ -42,14 +42,53 @@ function searchEvent(string $search, $startDate = null, $endDate = null): array
     return $result->fetch_all(MYSQLI_ASSOC);
 }
 
-function createEvent($uid, $eventname, $max_participants, $description, $image, $statusevent, $date) {
+function createEvent($uid, $eventname, $max_participants, $description, $image, $statusevent, $date, $files) {
     $conn = getConnection();
+    
+    // แทรกข้อมูลลงในตาราง event
     $sql = "INSERT INTO event (uid, date, eventname, max_participants, description, image, statusevent) 
             VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("issssss", $uid, $date, $eventname, $max_participants, $description, $image, $statusevent);
-    return $stmt->execute();
+    $stmt->execute();
+
+    // รับค่า eid ที่เป็น Primary Key ของ event ที่เพิ่งถูกแทรก
+    $eid = $conn->insert_id;
+    $_SESSION['eidd'] = $eid; // เก็บไว้ใน session หากต้องการใช้ในภายหลัง
+
+    // ตรวจสอบว่าได้รับไฟล์สำหรับอัปโหลดหรือไม่
+    if (!empty($files)) {
+        $uploadedFiles = [];
+        $uploadDir = 'uploads/';
+
+        // ตรวจสอบโฟลเดอร์ uploads
+        if (!file_exists($uploadDir)) {
+            mkdir($uploadDir, 0777, true); // สร้างโฟลเดอร์ถ้ายังไม่มี
+        }
+
+        // อัพโหลดไฟล์หลายๆไฟล์
+        foreach ($files['tmp_name'] as $key => $tmp_name) {
+            $fileExtension = pathinfo($files['name'][$key], PATHINFO_EXTENSION);
+            $uploadFile = $uploadDir . uniqid() . '.' . $fileExtension;
+
+            if (move_uploaded_file($tmp_name, $uploadFile)) {
+                $uploadedFiles[] = $uploadFile; // เก็บไฟล์ที่อัพโหลด
+            }
+        }
+
+        // เก็บไฟล์ในตาราง event_images
+        foreach ($uploadedFiles as $uploadedFile) {
+            $stmt_image = $conn->prepare("INSERT INTO event_images (event_id, image_path) VALUES (?, ?)");
+            $stmt_image->bind_param("is", $eid, $uploadedFile);
+            if (!$stmt_image->execute()) {
+                return false; // ถ้ามีข้อผิดพลาดในการ execute
+            }
+        }
+    }
+
+    return true; // สำเร็จ
 }
+
 
 function getUserEvents($uid) {
     $conn = getConnection();
