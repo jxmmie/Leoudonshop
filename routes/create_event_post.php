@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($result) {
         // หากการสร้างกิจกรรมสำเร็จ
-        echo "<script>alert('กิจกรรมได้ถูกสร้างสำเร็จ!'); window.location.href = 'event_list.php';</script>";
+        echo "<script>alert('กิจกรรมได้ถูกสร้างสำเร็จ!'); window.location.href = '/event';</script>";
     } else {
         // หากมีข้อผิดพลาดในการสร้างกิจกรรม
         echo "<script>alert('เกิดข้อผิดพลาดในการสร้างกิจกรรม'); window.history.back();</script>";
