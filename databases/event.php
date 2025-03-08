@@ -157,7 +157,7 @@ function uploadEventImages($eventId, $files) {
 
 function getEventImages($eventId) {
     $conn = getConnection();
-    $imagesQuery = "SELECT image_path FROM event_images WHERE event_id = ?";
+    $imagesQuery = "SELECT * FROM event_images WHERE event_id = ?";
     $stmt = $conn->prepare($imagesQuery);
     
     // ผูกพารามิเตอร์
@@ -184,4 +184,31 @@ function updateParticipantStatus($emid, $status) {
     $stmt->bind_param("si", $status, $emid);
     return $stmt->execute();
 }
+
+function deleteImage($imagePath) {
+    $conn = getConnection();
+
+    // ตรวจสอบว่าไฟล์รูปภาพมีอยู่ในเซิร์ฟเวอร์
+    if (file_exists($imagePath)) {
+        // ลบไฟล์รูปภาพออกจากเซิร์ฟเวอร์
+        unlink($imagePath);
+
+        // ลบข้อมูลรูปภาพออกจากฐานข้อมูล
+        $sql = "DELETE FROM event_images WHERE image_path = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $imagePath);
+        if ($stmt->execute()) {
+            $stmt->close();
+            return true; // Return true if deletion is successful
+        } else {
+            $stmt->close();
+            return "เกิดข้อผิดพลาดในการลบข้อมูลจากฐานข้อมูล"; // Return an error message if something goes wrong
+        }
+    } else {
+        return "ไม่พบรูปภาพในเซิร์ฟเวอร์"; // Return an error message if image does not exist
+    }
+}
+
+
+
 ?>
