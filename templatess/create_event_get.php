@@ -177,6 +177,14 @@
   }
 </style>
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>สร้างกิจกรรม</title>
+  <style>
+    /* CSS ที่คุณให้มา */
+  </style>
+</head>
 <body>
   <div class="container" style="margin-top: 60px;">
     <div class="left-panel">
@@ -186,7 +194,10 @@
       <button class="button1" onclick="window.history.back();">ย้อนกลับ</button>
     </div>
     <div class="right-panel">
-      <form id="activityForm" action="/create_event" method="post">
+      <form id="activityForm" action="/create_event" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+          <input type="file" name="images[]" id="images" multiple>
+        </div>
         <div class="form-group">
           <label for="activityName">ชื่อกิจกรรม</label>
           <input type="text" id="activityName" name="activityName" placeholder="ตั้งชื่อกิจกรรมของคุณ" required>
@@ -201,13 +212,10 @@
         </div>
         <div class="form-group">
           <label for="date">วัน/เดือน/ปี ที่สิ้นสุด</label>
-          <input type="date" id="date" name="date" require>
+          <input type="date" id="date" name="date" required>
         </div>
         <button class="button" type="submit" form="activityForm">สร้างกิจกรรม</button>
-
       </form>
     </div>
   </div>
 </body>
-
-</html>
