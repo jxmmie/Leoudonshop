@@ -1,6 +1,8 @@
 <?php
-// เช็คการส่งข้อมูลจาก Controller
-$participants = $data['participants']; 
+// ตรวจสอบว่ามีข้อมูลจาก Controller หรือไม่
+$participants = isset($data['participants']) ? $data['participants'] : null;
+
+
 ?>
 
 <!DOCTYPE html>
@@ -73,7 +75,7 @@ $participants = $data['participants'];
         <h2>รายชื่อผู้เข้าร่วม</h2>
     </div>
 
-    <?php if (isset($participants)): ?>
+    <?php if ($participants): ?>
         <div class="list-container">
             <table>
                 <thead>
@@ -81,33 +83,36 @@ $participants = $data['participants'];
                         <th>ชื่อ</th>
                         <th>นามสกุล</th>
                         <th>วันที่เข้าร่วม</th>
-                        <th>สถานะกิจกรรม</th>
+                        <th>สถานะ</th>
+                    
                     </tr>
                 </thead>
                 <tbody>
-    <?php while ($row = $participants->fetch_assoc()): ?>
-        <tr>
-            <td><?php echo htmlspecialchars($row['f_name']); ?></td>
-            <td><?php echo htmlspecialchars($row['l_name']); ?></td>
-            <td><?php echo htmlspecialchars($row['joindate']); ?></td>
-            <td><?php echo htmlspecialchars($row['status']); ?></td>
-            <td>
-                <form action="/status" method="post">
-
-                    <input type="radio" name="status" value="approved" <?php echo ($row['status'] === 'approved') ? 'checked' : ''; ?>> อนุมัติ
-                    <input type="radio" name="status" value="denied" <?php echo ($row['status'] === 'denied') ? 'checked' : ''; ?>> ยกเลิก
-                  
-                    
-                    <button type="submit">บันทึก</button>
-                </form>
-            </td>
-        </tr>
-    <?php endwhile; ?>
-</tbody>
+                    <?php while ($row = $participants->fetch_assoc()): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($row['f_name']); ?></td>
+                            <td><?php echo htmlspecialchars($row['l_name']); ?></td>
+                            <td><?php echo htmlspecialchars($row['joindate']); ?></td>
+                            <td><?php echo htmlspecialchars($row['status']); ?></td>
+                            <td>
+                                <form action="/status" method="post">
+                                   
+                                    <select name="status">
+                                        <option value="approved">อนุมัติ</option>
+                                        <option value="cancelled">ยกเลิก</option>
+                                    </select>
+                                    <input type="hidden" name="eid" value="<?php echo $row['eid']; ?>">
+                                    <input type="hidden" name="uid" value="<?php echo $row['uid']; ?>">
+                                    <button type="submit">บันทึก</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <?php endwhile; ?>
+                </tbody>
             </table>
         </div>
-    <?php elseif (isset($eid)): ?>
-        <p>ไม่มีผู้เข้าร่วมกิจกรรมนี้หรือกิจกรรมไม่ถูกต้อง</p>
+    <?php else: ?>
+        <p style="color: red;">ไม่มีผู้เข้าร่วมกิจกรรมนี้ หรือเกิดข้อผิดพลาดในการโหลดข้อมูล</p>
     <?php endif; ?>
 
     <button class="back-button" onclick="window.history.back();">ย้อนกลับ</button>
