@@ -157,7 +157,7 @@ function uploadEventImages($eventId, $files) {
 
 function getEventImages($eventId) {
     $conn = getConnection();
-    $imagesQuery = "SELECT image_path FROM event_images WHERE event_id = ?";
+    $imagesQuery = "SELECT * FROM event_images WHERE event_id = ?";
     $stmt = $conn->prepare($imagesQuery);
     
     // ผูกพารามิเตอร์

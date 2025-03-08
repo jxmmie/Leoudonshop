@@ -55,19 +55,25 @@ $event = $data['event'];
 
   .image-upload-box {
     width: 300px;
-    height: 250px;
+    height: auto;
     background-color: #444;
     border-radius: 5px;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* ปรับเป็น 2-3 รูปต่อแถว */
+    gap: 10px; /* ระยะห่างระหว่างรูป */
+    padding: 10px;
+    overflow: hidden;
     justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-  }
+}
 
-  .image-upload-box img {
-    max-width: 100%;
-    max-height: 100%;
-  }
+.image-upload-box img {
+    width: 100px; /* ขนาดรูปภาพ */
+    height: 100px;
+    object-fit: cover; /* ป้องกันการบิดเบือนของรูป */
+    border-radius: 5px;
+    border: 2px solid white;
+}
+
 
   .button {
     padding: 10px 20px;
@@ -177,11 +183,25 @@ $event = $data['event'];
 <body>
 
 <div class="container" style="margin-top: 60px;">
-    <div class="left-panel">
-        <div class="image-upload-box">
-            <img src="<?php echo $imagePath; ?>" alt="Upload Image">
-        </div>
-        
+<div class="left-panel">
+    <div class="image-upload-box">
+    <?php
+    $images = getEventImages($event['eid']); // ดึงข้อมูลรูปภาพจากฐานข้อมูล
+    if (!empty($images)): 
+        foreach ($images as $image): ?>
+            <img src="<?php echo htmlspecialchars($image); ?>" alt="Event Image">
+            <form action="/delete_image" method="post">
+                <input type="hidden" name="image_path" value="<?php echo htmlspecialchars($image); ?>"> <!-- Store the image URL for deletion -->
+                <button type="submit" name="delete_image" class="btn-enroll">ลบรูปภาพ</button>
+            </form>
+        <?php endforeach; 
+    else: ?>
+        <p>📷 ไม่มีรูปภาพกิจกรรม</p>
+    <?php endif; ?>
+    </div>
+</div>
+
+
         <button class="button" onclick="window.history.back();">ย้อนกลับ</button>
     </div>
     <div class="right-panel">

@@ -2,14 +2,14 @@
 // ตรวจสอบว่ามีการส่งค่า event_name มาหรือไม่
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // รับข้อมูลจากฟอร์ม
-    $uid = $_POST['uid'];
-    $eid = $_POST['eid'];
-    $event = getEventById($eid);
-    if ( $uid ==  $event['uid']){
+    $_SESSION['uidget'] = $_POST['uid'];
+    $_SESSION['eidget'] = $_POST['eid'];
+    $event = getEventById($_SESSION['eidget']);
+    if ( $_SESSION['uidget'] ==  $event['uid']){
        
         renderView('edit_event_get',['event' => $event]); 
     } else {
-        if (createEventmember($uid, $eid)) {
+        if (createEventmember($_SESSION['uidget'], $_SESSION['eidget'])) {
        
             echo "<script>alert('สมาชิกถูกเพิ่มเข้าสู่กิจกรรมเรียบร้อยแล้ว!'); window.location.href='/event';</script>";
         } else {
