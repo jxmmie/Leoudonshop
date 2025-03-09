@@ -96,24 +96,27 @@ $participants = isset($data['participants']) ? $data['participants'] : null;
                             <td><?php echo htmlspecialchars($row['joindate']); ?></td>
                             <td><?php echo htmlspecialchars($row['status']); ?></td>
                             <td>
-                                <form action="/status" method="post">
-                                <?php if ($row['status'] === "อนุมัติ"): ?>
-                                    <select name="status">  
-                                        <option value="ยกเลิก">ยกเลิกอนุมัติ</option>
-                                    </select>
-                                    <input type="hidden" name="eid" value="<?php echo $row['eid']; ?>">
-                                    <input type="hidden" name="uid" value="<?php echo $row['uid']; ?>">
-                                    <button type="submit">บันทึก</button>
-                                    <?php else:?>
-                                        <select name="status">
-                                        <option value="อนุมัติ">อนุมัติ</option>
-                                        <option value="ยกเลิก">ยกเลิก</option>
-                                    </select>
-                                    <input type="hidden" name="eid" value="<?php echo $row['eid']; ?>">
-                                    <input type="hidden" name="uid" value="<?php echo $row['uid']; ?>">
-                                    <button type="submit">บันทึก</button>
-                                      <?php endif; ?>
-                                </form>
+                            <form action="/status" method="post" onsubmit="return confirmSubmit()">
+    <?php if ($row['status'] === "อนุมัติ" || $row['status'] === "เช็คชื่อแล้ว"): ?>
+        <select name="status">  
+            <option value="ยกเลิก">ถอนรายชื่อออก</option>
+        </select>
+        <input type="hidden" name="eid" value="<?php echo $row['eid']; ?>">
+        <input type="hidden" name="uid" value="<?php echo $row['uid']; ?>">
+        <button type="submit">บันทึก</button>
+    <?php else: ?>
+        <select name="status">
+            <option value="อนุมัติ">อนุมัติ</option>
+            <option value="ยกเลิก">ยกเลิก</option>
+        </select>
+        <input type="hidden" name="eid" value="<?php echo $row['eid']; ?>">
+        <input type="hidden" name="uid" value="<?php echo $row['uid']; ?>">
+        <button type="submit">บันทึก</button>
+    <?php endif; ?>
+</form>
+
+
+
                             </td>
                         </tr>
                     <?php endwhile; ?>
@@ -126,6 +129,10 @@ $participants = isset($data['participants']) ? $data['participants'] : null;
 
     <button class="back-button" onclick="window.history.back();">ย้อนกลับ</button>
 </div>
-
+<script>
+    function confirmSubmit() {
+        return confirm("คุณแน่ใจหรือว่าต้องการบันทึกการเปลี่ยนแปลงนี้?");
+    }
+</script>
 </body>
 </html>

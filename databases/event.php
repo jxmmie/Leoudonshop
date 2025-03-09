@@ -273,4 +273,26 @@ function getEventNameAndStatusByUid($uid) {
     $conn->close();
     return $result;
 }
+
+function checkCheckCode($eid) {
+    $conn = getConnection();
+
+    $sql = "SELECT checkcode FROM event WHERE eid = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $eid);
+    $stmt->execute();
+    $stmt->bind_result($checkCode);
+    if ($stmt->fetch()) {
+        if ($checkCode === NULL) {
+            $stmt->close();
+            $conn->close();
+            return false; 
+        }
+    }
+    
+    $stmt->close();
+    $conn->close();
+    
+    return true; 
+}
 ?>
