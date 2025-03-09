@@ -205,6 +205,13 @@ $event = $data['event'];
         <button class="button" onclick="window.history.back();">ย้อนกลับ</button>
     </div>
     <div class="right-panel">
+    <form action="/uploda" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+        <input type="hidden" name="eid" value="<?php echo $event['eid']; ?>">
+          <input type="file" name="images[]" id="images" multiple>
+          <button class="button" type="submit">Upload</button>
+        </div>
+     </form>
     <form action="/edit_event" method="post">
     <input type="hidden" name="eid" value="<?php echo $event['eid']; ?>">
     <div class="form-group">

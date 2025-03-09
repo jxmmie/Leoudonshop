@@ -88,6 +88,7 @@ $participants = isset($data['participants']) ? $data['participants'] : null;
                     </tr>
                 </thead>
                 <tbody>
+                    
                     <?php while ($row = $participants->fetch_assoc()): ?>
                         <tr>
                             <td><?php echo htmlspecialchars($row['f_name']); ?></td>
@@ -96,14 +97,22 @@ $participants = isset($data['participants']) ? $data['participants'] : null;
                             <td><?php echo htmlspecialchars($row['status']); ?></td>
                             <td>
                                 <form action="/status" method="post">
-                                   
-                                    <select name="status">
+                                <?php if ($row['status'] === "อนุมัติ"): ?>
+                                    <select name="status">  
+                                        <option value="ยกเลิก">ยกเลิกอนุมัติ</option>
+                                    </select>
+                                    <input type="hidden" name="eid" value="<?php echo $row['eid']; ?>">
+                                    <input type="hidden" name="uid" value="<?php echo $row['uid']; ?>">
+                                    <button type="submit">บันทึก</button>
+                                    <?php else:?>
+                                        <select name="status">
                                         <option value="อนุมัติ">อนุมัติ</option>
                                         <option value="ยกเลิก">ยกเลิก</option>
                                     </select>
                                     <input type="hidden" name="eid" value="<?php echo $row['eid']; ?>">
                                     <input type="hidden" name="uid" value="<?php echo $row['uid']; ?>">
                                     <button type="submit">บันทึก</button>
+                                      <?php endif; ?>
                                 </form>
                             </td>
                         </tr>

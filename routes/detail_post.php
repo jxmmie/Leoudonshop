@@ -6,8 +6,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $_SESSION['eidget'] = $_POST['eid'];
     $event = getEventById($_SESSION['eidget']);
     if ( $_SESSION['uidget'] ==  $event['uid']){
-       
-        renderView('edit_event_get',['event' => $event]); 
+
+        echo "<script> window.location.href='/edit_event';</script>";
+      
     } else {
         if (createEventmember($_SESSION['uidget'], $_SESSION['eidget'])) {
        

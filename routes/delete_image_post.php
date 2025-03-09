@@ -7,8 +7,7 @@ if (isset($_POST['image_path'])) {
 
     // Check if the image deletion was successful
     if ($message === true) {
-        $event = getEventById($_SESSION['eidget']);
-        renderView('edit_event_get',['event' => $event]); 
+        echo "<script> window.location.href='/edit_event';</script>";
         exit(); // Make sure to stop the script after the redirect
     } else {
         // If there was an error, display the message

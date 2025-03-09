@@ -163,7 +163,7 @@ function searchEvents(string $keyword): array
     return $result->fetch_all(MYSQLI_ASSOC);
 }
 
-function uploadEventImages($eventId, $files) {
+function uploadEventImages($eid, $files) {
     $uploadedFiles = [];
     $uploadDir = 'uploads/';
     $conn = getConnection();
@@ -185,7 +185,7 @@ function uploadEventImages($eventId, $files) {
     // เก็บไฟล์ในตาราง event_images
     foreach ($uploadedFiles as $uploadedFile) {
         $stmt = $conn->prepare("INSERT INTO event_images (event_id, image_path) VALUES (?, ?)");
-        $stmt->bind_param("is", $eventId, $uploadedFile);
+        $stmt->bind_param("is", $eid, $uploadedFile);
         if (!$stmt->execute()) {
             return false; // ถ้ามีข้อผิดพลาดในการ execute
         }
