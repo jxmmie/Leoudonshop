@@ -135,7 +135,7 @@
                 <span class="menu-icon" onclick="toggleDropdown()">☰</span>
                 <div class="dropdown-menu" id="dropdownMenu">
                     <a href="/profileuser">โปรไฟล์</a>
-                    <a href="">ประวัติ</a>
+                    <a href="/history">ประวัติ</a>
                     <a href="/create_event">สร้างกิจกรรม</a>
                     <a href="/logout">ออกจากระบบ</a>
                 </div>

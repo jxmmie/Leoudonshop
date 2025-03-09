@@ -259,4 +259,18 @@ function deleteImage($imagePath) {
         return "ไม่พบรูปภาพในเซิร์ฟเวอร์"; // Return an error message if image does not exist
     }
 }
+function getEventNameAndStatusByUid($uid) {
+    $conn = getConnection();
+    $sql = "SELECT e.eventname, em.status
+            FROM event e
+            JOIN event_members em ON e.eid = em.eid
+            WHERE em.uid = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $uid);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $stmt->close();
+    $conn->close();
+    return $result;
+}
 ?>

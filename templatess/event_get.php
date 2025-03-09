@@ -148,7 +148,7 @@ $endDate = isset($data['endDate']) ? $data['endDate'] : '';
                 <div class="dropdown-menu">
                     <a href="/profileuser">โปรไฟล์</a>
                     <a href="/event_user">กิจกรรมของฉัน</a>
-                    <a href="">ประวัติ</a>
+                    <a href="/history">ประวัติ</a>
                     <a href="/create_event">สร้างกิจกรรม</a>
                     <a href="/logout">ออกจากระบบ</a>
                 </div>
