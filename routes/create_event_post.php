@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 // ตรวจสอบว่าผู้ใช้เข้าสู่ระบบหรือไม่
 if (!isset($_SESSION['uid'])) {
@@ -17,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $description = isset($_POST['activityDetails']) ? trim($_POST['activityDetails']) : '';
     $date = isset($_POST['date']) ? $_POST['date'] : '';
     $files = isset($_FILES['images']) ? $_FILES['images'] : null;
-
+    $statusevent = "active";
     // ตรวจสอบข้อมูลที่จำเป็น
     if (empty($eventname) || empty($max_participants) || empty($description) || empty($date)) {
         // ถ้าข้อมูลที่จำเป็นไม่ครบ ให้แสดงข้อความแจ้งเตือน
@@ -31,8 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     }
 
-    // สร้างกิจกรรม
-    $result = createEvent($uid, $eventname, $max_participants, $description, null, 'active', $date, $files);
+    // สร้างกิจกรรมcreateEvent($uid, $eventname, $max_participants, $description,  , $date, $files)
+    $result = createEvent($uid, $eventname, $max_participants, $description, $statusevent, $date, $files);
 
     if ($result) {
         // หากการสร้างกิจกรรมสำเร็จ

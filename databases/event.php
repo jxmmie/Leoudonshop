@@ -42,14 +42,14 @@ function searchEvent(string $search, $startDate = null, $endDate = null): array
     return $result->fetch_all(MYSQLI_ASSOC);
 }
 
-function createEvent($uid, $eventname, $max_participants, $description, $image, $statusevent, $date, $files) {
+function createEvent($uid, $eventname, $max_participants, $description,  $statusevent, $date, $files) {
     $conn = getConnection();
     
     // แทรกข้อมูลลงในตาราง event
-    $sql = "INSERT INTO event (uid, date, eventname, max_participants, description, image, statusevent) 
-            VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO event (uid, date, eventname, max_participants, description,  statusevent) 
+            VALUES (?, ?, ?, ?, ?,  ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("issssss", $uid, $date, $eventname, $max_participants, $description, $image, $statusevent);
+    $stmt->bind_param("isssss", $uid, $date, $eventname, $max_participants, $description,  $statusevent);
     $stmt->execute();
 
     // รับค่า eid ที่เป็น Primary Key ของ event ที่เพิ่งถูกแทรก
@@ -103,13 +103,14 @@ function getUserEvents($uid) {
     return $events;
 }
 
-function updateEvent($eid, $eventname, $max_participants, $description, $imageurl, $statusevent) {
+function updateEvent($eid, $eventname, $max_participants, $description, $date) {
     $conn = getConnection();
-    $sql = "UPDATE event SET  eventname=?, max_participants=?, description=?, imageurl=?, statusevent=? WHERE eid=?";
+    $sql = "UPDATE event SET eventname=?, max_participants=?, description=?, date=? WHERE eid=?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sisssi",  $eventname, $max_participants, $description, $imageurl, $statusevent, $eid);
+    $stmt->bind_param("sissi", $eventname, $max_participants, $description,  $date, $eid);
     return $stmt->execute();
 }
+
 
 function deleteEvent($event_id) {
     $conn = getConnection();

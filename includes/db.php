@@ -3,7 +3,7 @@
 function getConnection():mysqli
 {
     $hostname = '45.64.187.212';
-    $dbName = 'leoudons_data';
+    $dbName = 'leoudons_data2';
     $username = 'leoudons_sever';
     $password = 'Li3YYsId[9h53)';
     $conn = new mysqli($hostname, $username, $password, $dbName);

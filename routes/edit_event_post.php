@@ -5,12 +5,11 @@ $eid = $_POST['eid']; // รับ eid จาก form
 $eventname = $_POST['eventname'];
 $max_participants = $_POST['max_participants'];
 $description = $_POST['description'];
-$image = 'default.jpg'; // ถ้าไม่มีรูปใหม่ให้ใช้ default
-$statusevent = 'active';
+// $statusevent = 'active';
 $date = $_POST['date'];
 
 // อัปเดตกิจกรรม
-$result = updateEvent($eid, $eventname, $max_participants, $description, $image, $statusevent, $date);
+$result = updateEvent($eid, $eventname, $max_participants, $description, $date);
 
 if ($result) {
     echo "<script>alert('แก้ไขกิจกรรมสำเร็จ!'); window.location.href='/event';</script>";
