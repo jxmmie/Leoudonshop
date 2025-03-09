@@ -33,4 +33,74 @@ function getParticipants($eid) {
     $result = $stmt->get_result();
     return $result;
 }
+
+function insertCheckCode($eid) {
+    // สร้างการเชื่อมต่อ
+    $conn = getConnection();
+    $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $checkCode = '';
+    for ($i = 0; $i < 6; $i++) {
+        $checkCode .= $characters[random_int(0, strlen($characters) - 1)];
+    }
+    // SQL เพิ่ม Check Code ลงตาราง event_checkcode
+    $sql = "UPDATE event SET checkcode = ? WHERE eid = ?";
+    $stmt = $conn->prepare($sql);
+
+    $stmt->bind_param("si", $checkCode, $eid);
+    $stmt->execute();
+    $stmt->close();
+    $conn->close();
+
+    return $checkCode;
+}
+
+
+function getstats($uid, $eid) {
+    $conn = getConnection();
+    $sql = "SELECT en.status
+              FROM user u
+              INNER JOIN event_members en ON u.uid = en.uid
+              WHERE en.eid = ? AND en.uid = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ii", $eid, $uid);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    // ใช้ fetch_assoc() เพื่อดึงข้อมูลจาก result
+    $row = $result->fetch_assoc();
+
+    // ปิดการเชื่อมต่อ
+    $stmt->close();
+    $conn->close();
+
+    // ถ้ามีข้อมูล ให้คืนค่าของ status
+    if ($row) {
+        return $row['status'];
+    } else {
+        return null; 
+    }
+}
+
+
+function getCheckCode($eid) {
+    // สร้างการเชื่อมต่อ
+    $conn = getConnection();
+    // เตรียมคำสั่ง SQL
+    $sql = "SELECT checkcode FROM event WHERE eid = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $eid);
+    $stmt->execute();
+    
+    // ดึงผลลัพธ์
+    $stmt->bind_result($checkCode);
+    if ($stmt->fetch()) {
+        return $checkCode;
+    } else {
+        return null; // ถ้าไม่มีข้อมูล
+    }
+
+    // ปิดการเชื่อมต่อ
+    $stmt->close();
+    $conn->close();
+}
 ?>
