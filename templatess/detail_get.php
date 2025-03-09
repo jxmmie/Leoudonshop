@@ -1,6 +1,7 @@
 <?php
 $event = $data['event'];
 $uid = $_SESSION['uid'];
+$st = getstats($uid,$event['eid']);
 ?>
 
 <!DOCTYPE html>
@@ -248,13 +249,38 @@ $uid = $_SESSION['uid'];
                     <input type="hidden" name="eid" value="<?= $event['eid'] ?>">
                     <button type="submit" name="enroll" class="btn-enroll">แก้ไขกิจกรรม</button>
                 </form>
-            <?php else: ?>
-                <form action="/detail" method="post">
-                    <input type="hidden" name="uid" value="<?= $uid ?>">
+                <form action="/genpin" method="post">
+                <?php
+                $images = getEventImages($event['eid']);
+                if (checkCheckCode($event['eid'])): ?>
+                        <label><?= $_SESSION['code'] ?></label>
+                         <input type="hidden" name="eid" value="<?= $event['eid'] ?>">
+                         <button type="submit" name="enroll" class="btn-enroll">สร้างรหัสเช็คชื่อ</button>
+                <?php else: ?>
                     <input type="hidden" name="eid" value="<?= $event['eid'] ?>">
+                    <button type="submit" name="enroll" class="btn-enroll">สร้างรหัสเช็คชื่อ</button>
+                <?php endif; ?>
+                </form>
+            <?php else: ?>
+          
                     <?php if (isMemberExist($uid, $event['eid'])): ?>
                         <button type="button" class="hidden-button">เข้าร่วมกิจกรรม</button>
+                        <?php if ($st == "อนุมัติ"): ?>
+                                    <form action="/checkin" method="post">
+                                    <input type="hidden" name="uid" value="<?= $uid ?>">
+                                     <input type="hidden" name="eid" value="<?= $event['eid'] ?>">
+                                     <input type="text" name="cd" >
+                                     <button type="submit" name="enroll" class="btn-enroll">เช็คชื่อ</button>
+                                     </form> 
+                         <?php elseif($st == "รอดำเนินการ"): ?>
+                            <button type="button" class="hidden-button">รอดำเนินการ</button>
+                            <?php else: ?>
+                                <button type="button" class="hidden-button">เช็คชื่อแล้ว</button>
+                        <?php endif; ?>
                     <?php else: ?>
+                        <form action="/detail" method="post">
+                    <input type="hidden" name="uid" value="<?= $uid ?>">
+                    <input type="hidden" name="eid" value="<?= $event['eid'] ?>">
                         <button type="submit" name="enroll" class="btn-enroll">เข้าร่วมกิจกรรม</button>
                     <?php endif; ?>
                 </form>
