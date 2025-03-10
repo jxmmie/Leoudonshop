@@ -131,6 +131,11 @@ function deleteEvent($event_id) {
     }
 
     $stmt->close();
+    $stmt1 = $conn->prepare("DELETE FROM event_members WHERE eid = ?");
+    $stmt1->bind_param("i", $event_id);
+    $stmt1->execute();
+    $stmt1->close();
+
 
     // ลบรายการภาพออกจากตาราง event_images
     $sql = "DELETE FROM event_images WHERE event_id=?";

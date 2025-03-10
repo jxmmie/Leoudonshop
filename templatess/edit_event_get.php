@@ -30,12 +30,13 @@ $event = $data['event'];
   .container {
     display: flex;
     width: 80%;
+    max-height: 90vh; /* กำหนดความสูงสูงสุด */
+    overflow-y: auto; /* เพิ่ม scroll ถ้าข้อมูลเยอะ */
     background-color: #333;
     color: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    height: 700px;
   }
 
   .left-panel {
@@ -54,26 +55,24 @@ $event = $data['event'];
   }
 
   .image-upload-box {
-    width: 300px;
-    height: auto;
+    width: 100%;
     background-color: #444;
     border-radius: 5px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* ปรับเป็น 2-3 รูปต่อแถว */
-    gap: 10px; /* ระยะห่างระหว่างรูป */
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 10px;
     padding: 10px;
-    overflow: hidden;
-    justify-content: center;
-}
+    overflow-y: auto;
+    max-height: 250px; /* จำกัดความสูงของกล่องรูป */
+  }
 
-.image-upload-box img {
-    width: 100px; /* ขนาดรูปภาพ */
+  .image-upload-box img {
+    width: 100px;
     height: 100px;
-    object-fit: cover; /* ป้องกันการบิดเบือนของรูป */
+    object-fit: cover;
     border-radius: 5px;
     border: 2px solid white;
-}
-
+  }
 
   .button {
     padding: 10px 20px;
@@ -83,6 +82,11 @@ $event = $data['event'];
     cursor: pointer;
     background-color: #555;
     color: white;
+    transition: background-color 0.3s;
+  }
+
+  .button:hover {
+    background-color: #777;
   }
 
   .form-group {
@@ -103,67 +107,12 @@ $event = $data['event'];
     color: white;
   }
 
+  /* ทำให้ textarea สามารถขยายขนาดได้ */
   .form-group textarea {
-    height: 100px;
-  }
-
-  /* Navbar Styles (ไม่ต้องแก้ไข) */
-
-
-  .search-box {
-    display: flex;
-    align-items: center;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 5px;
-    margin-right: 10px;
-  }
-
-  .search-box input[type="text"] {
-    border: none;
-    outline: none;
-    padding: 5px;
-  }
-
-  .search-icon, .clear-icon {
-    margin-left: 5px;
-    cursor: pointer;
-  }
-
-  .notification-icon, .menu-icon {
-    margin-left: 10px;
-    cursor: pointer;
-  }
-
-  /* Dropdown Styles */
-  .dropdown-container {
-    position: relative;
-  }
-
-  .dropdown-menu {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    right: 0;
-    top: 100%;
-  }
-
-  .dropdown-container:hover .dropdown-menu {
-    display: block;
-  }
-
-  .dropdown-menu a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-  }
-
-  .dropdown-menu a:hover {
-    background-color: #f1f1f1;
+    min-height: 100px;
+    max-height: 300px;
+    height: auto;
+    resize: vertical;
   }
 
   /* ปุ่มลบกิจกรรม */
@@ -177,69 +126,75 @@ $event = $data['event'];
     font-size: 16px;
     margin-top: 20px;
     width: 40%;
+    transition: background-color 0.3s;
+  }
+
+  .delete-button:hover {
+    background-color: darkred;
   }
 </style>
 </head>
 <body>
 
-<div class="container" style="margin-top: 60px;">
-<div class="left-panel">
+<div class="container">
+  <div class="left-panel">
     <div class="image-upload-box">
-    <?php
-    $images = getEventImages($event['eid']); // ดึงข้อมูลรูปภาพจากฐานข้อมูล
-    if (!empty($images)): 
-        foreach ($images as $image): ?>
-            <img src="<?php echo htmlspecialchars($image); ?>" alt="Event Image">
-            <form action="/delete_image" method="post">
-                <input type="hidden" name="image_path" value="<?php echo htmlspecialchars($image); ?>"> <!-- Store the image URL for deletion -->
-                <button type="submit" name="delete_image" class="btn-enroll">ลบรูปภาพ</button>
-            </form>
-        <?php endforeach; 
-    else: ?>
-        <p>📷 ไม่มีรูปภาพกิจกรรม</p>
-    <?php endif; ?>
+      <?php
+      $images = getEventImages($event['eid']);
+      if (!empty($images)): 
+          foreach ($images as $image): ?>
+              <img src="<?php echo htmlspecialchars($image); ?>" alt="Event Image">
+              <form action="/delete_image" method="post">
+                  <input type="hidden" name="image_path" value="<?php echo htmlspecialchars($image); ?>">
+                  <button type="submit" name="delete_image" class="button">ลบรูปภาพ</button>
+              </form>
+          <?php endforeach; 
+      else: ?>
+          <p>📷 ไม่มีรูปภาพกิจกรรม</p>
+      <?php endif; ?>
     </div>
-</div>
+  </div>
 
-
-    </div>
-    <div class="right-panel">
+  <div class="right-panel">
     <form action="/uploda" method="post" enctype="multipart/form-data">
-        <div class="form-group">
+      <div class="form-group">
         <input type="hidden" name="eid" value="<?php echo $event['eid']; ?>">
-          <input type="file" name="images[]" id="images" multiple>
-          <button class="button" type="submit">Upload</button>
-        </div>
-     </form>
+        <input type="file" name="images[]" id="images" multiple>
+        <button class="button" type="submit">อัพโหลด</button>
+      </div>
+    </form>
+
     <form action="/edit_event" method="post">
-    <input type="hidden" name="eid" value="<?php echo $event['eid']; ?>">
-    <div class="form-group">
+      <input type="hidden" name="eid" value="<?php echo $event['eid']; ?>">
+      <div class="form-group">
         <label for="activityName">ชื่อกิจกรรม</label>
         <input type="text" id="activityName" name="eventname" placeholder="ตั้งชื่อกิจกรรมของคุณ" value="<?php echo $activityName; ?>">
-    </div>
-    <div class="form-group">
+      </div>
+      <div class="form-group">
         <label for="activityDetails">รายละเอียดกิจกรรม</label>
         <textarea id="activityDetails" name="description" placeholder="รายละเอียดกิจกรรม"><?php echo $activityDetails; ?></textarea>
-    </div>
-    <div class="form-group">
+      </div>
+      <div class="form-group">
         <label for="participants">จำนวนผู้เข้าร่วม</label>
         <input type="number" id="participants" name="max_participants" placeholder="จำนวนผู้เข้าร่วม" value="<?php echo $participants; ?>">
-    </div>
-    <div class="form-group">
+      </div>
+      <div class="form-group">
         <label for="date">วัน/เดือน/ปี ที่สิ้นสุด</label>
         <input type="date" id="date" name="date" value="<?php echo $date; ?>">
-    </div>
-    <button class="button" type="submit">บันทึกการแก้ไข</button>
-</form>
-<form action="/list_event" method="post" >
-                        <input type="hidden" name="eid" value="<?= $event['eid'] ?>">
-                        <button type="submit" name="enroll" class="btn btn-primary">ผู้เข้าร่วมกิจกรรม</button>
-                    </form>
-                    <form action="/delete_event" method="post" onsubmit="return confirm('คุณแน่ใจหรือไม่ว่าต้องการลบกิจกรรมนี้?');">
-            <input type="hidden" name="eid" value="<?php echo $event['eid']; ?>">
-            <button type="submit" name="delete" class="delete-button">ลบกิจกรรม</button>
-        </form>
-    </div>
+      </div>
+      <button class="button" type="submit">บันทึกการแก้ไข</button>
+    </form>
+
+    <form action="/list_event" method="post">
+      <input type="hidden" name="eid" value="<?= $event['eid'] ?>">
+      <button type="submit" name="enroll" class="button">ผู้เข้าร่วมกิจกรรม</button>
+    </form>
+
+    <form action="/delete_event" method="post" onsubmit="return confirm('คุณแน่ใจหรือไม่ว่าต้องการลบกิจกรรมนี้?');">
+      <input type="hidden" name="eid" value="<?php echo $event['eid']; ?>">
+      <button type="submit" name="delete" class="delete-button">ลบกิจกรรม</button>
+    </form>
+  </div>
 </div>
 
 </body>
