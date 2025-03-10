@@ -202,7 +202,6 @@ $event = $data['event'];
 </div>
 
 
-        <button class="button" onclick="window.history.back();">ย้อนกลับ</button>
     </div>
     <div class="right-panel">
     <form action="/uploda" method="post" enctype="multipart/form-data">
