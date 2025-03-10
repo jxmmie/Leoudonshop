@@ -195,9 +195,14 @@
     </div>
     <div class="right-panel">
       <form id="activityForm" action="/create_event" method="post" enctype="multipart/form-data">
+        <div id="upload-container">
         <div class="form-group">
-          <input type="file" name="images[]" id="images" multiple>
+            <input type="file" name="images[]" class="images" multiple>
         </div>
+    </div>
+
+    <button type="button" id="add-input">เพิ่มช่องอัปโหลด</button>
+        
         <div class="form-group">
           <label for="activityName">ชื่อกิจกรรม</label>
           <input type="text" id="activityName" name="activityName" placeholder="ตั้งชื่อกิจกรรมของคุณ" required>
@@ -218,4 +223,13 @@
       </form>
     </div>
   </div>
+  <script>
+        document.getElementById("add-input").addEventListener("click", function() {
+            let container = document.getElementById("upload-container");
+            let newInput = document.createElement("div");
+            newInput.classList.add("form-group");
+            newInput.innerHTML = '<input type="file" name="images[]" class="images" multiple>';
+            container.appendChild(newInput);
+        });
+    </script>
 </body>
