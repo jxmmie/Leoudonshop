@@ -1,8 +1,6 @@
 <?php
 // ตรวจสอบว่ามีข้อมูลจาก Controller หรือไม่
 $participants = isset($data['participants']) ? $data['participants'] : null;
-
-
 ?>
 
 <!DOCTYPE html>
@@ -55,15 +53,16 @@ $participants = isset($data['participants']) ? $data['participants'] : null;
         tr:last-child td {
             border-bottom: none;
         }
-        .back-button {
+        .back-button, .action-button {
             background-color: #555;
             color: white;
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            margin-right: 5px;
         }
-        .back-button:hover {
+        .back-button:hover, .action-button:hover {
             background-color: #777;
         }
     </style>
@@ -84,11 +83,10 @@ $participants = isset($data['participants']) ? $data['participants'] : null;
                         <th>นามสกุล</th>
                         <th>วันที่เข้าร่วม</th>
                         <th>สถานะ</th>
-                    
+                        <th>การกระทำ</th>
                     </tr>
                 </thead>
                 <tbody>
-                    
                     <?php while ($row = $participants->fetch_assoc()): ?>
                         <tr>
                             <td><?php echo htmlspecialchars($row['f_name']); ?></td>
@@ -96,27 +94,12 @@ $participants = isset($data['participants']) ? $data['participants'] : null;
                             <td><?php echo htmlspecialchars($row['joindate']); ?></td>
                             <td><?php echo htmlspecialchars($row['status']); ?></td>
                             <td>
-                            <form action="/status" method="post" onsubmit="return confirmSubmit()">
-    <?php if ($row['status'] === "อนุมัติ" || $row['status'] === "เช็คชื่อแล้ว"): ?>
-        <select name="status">  
-            <option value="ยกเลิก">ถอนรายชื่อออก</option>
-        </select>
-        <input type="hidden" name="eid" value="<?php echo $row['eid']; ?>">
-        <input type="hidden" name="uid" value="<?php echo $row['uid']; ?>">
-        <button type="submit">บันทึก</button>
-    <?php else: ?>
-        <select name="status">
-            <option value="อนุมัติ">อนุมัติ</option>
-            <option value="ยกเลิก">ยกเลิก</option>
-        </select>
-        <input type="hidden" name="eid" value="<?php echo $row['eid']; ?>">
-        <input type="hidden" name="uid" value="<?php echo $row['uid']; ?>">
-        <button type="submit">บันทึก</button>
-    <?php endif; ?>
-</form>
-
-
-
+                                <?php if ($row['status'] === "อนุมัติ" || $row['status'] === "เช็คชื่อแล้ว"): ?>
+                                    <button class="action-button" onclick="updateStatus(<?php echo $row['eid']; ?>, <?php echo $row['uid']; ?>, 'ถอนรายชื่อ')">ยกเลิก</button>
+                                <?php else: ?>
+                                    <button class="action-button" onclick="updateStatus(<?php echo $row['eid']; ?>, <?php echo $row['uid']; ?>, 'อนุมัติ')">อนุมัติ</button>
+                                    <button class="action-button" onclick="updateStatus(<?php echo $row['eid']; ?>, <?php echo $row['uid']; ?>, 'ยกเลิก')">ยกเลิก</button>
+                                <?php endif; ?>
                             </td>
                         </tr>
                     <?php endwhile; ?>
@@ -129,9 +112,30 @@ $participants = isset($data['participants']) ? $data['participants'] : null;
 
     <button class="back-button" onclick="window.history.back();">ย้อนกลับ</button>
 </div>
+
 <script>
-    function confirmSubmit() {
-        return confirm("คุณแน่ใจหรือว่าต้องการบันทึกการเปลี่ยนแปลงนี้?");
+    function updateStatus(eid, uid, status) {
+        if (confirm("คุณแน่ใจหรือไม่ว่าต้องการ " + (status === 'อนุมัติ' ? 'อนุมัติ' : 'ยกเลิก') + " ผู้เข้าร่วมคนนี้?")) {
+            // ส่งคำขอ AJAX ไปยัง Controller เพื่ออัปเดตสถานะ
+            fetch('/status', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'eid=' + eid + '&uid=' + uid + '&status=' + status,
+            })
+            .then(response => {
+                if (response.ok) {
+                    location.reload(); // โหลดหน้านี้ใหม่เพื่อแสดงผลการอัปเดต
+                } else {
+                    alert('เกิดข้อผิดพลาดในการอัปเดตสถานะ');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('เกิดข้อผิดพลาดในการอัปเดตสถานะ');
+            });
+        }
     }
 </script>
 </body>
