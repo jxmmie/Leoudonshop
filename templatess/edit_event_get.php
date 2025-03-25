@@ -185,10 +185,7 @@ $event = $data['event'];
       <button class="button" type="submit">บันทึกการแก้ไข</button>
     </form>
 
-    <form action="/list_event" method="post">
-      <input type="hidden" name="eid" value="<?= $event['eid'] ?>">
-      <button type="submit" name="enroll" class="button">ผู้เข้าร่วมกิจกรรม</button>
-    </form>
+   
 
     <form action="/delete_event" method="post" onsubmit="return confirm('คุณแน่ใจหรือไม่ว่าต้องการลบกิจกรรมนี้?');">
       <input type="hidden" name="eid" value="<?php echo $event['eid']; ?>">

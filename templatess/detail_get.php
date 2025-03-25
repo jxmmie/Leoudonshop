@@ -2,6 +2,8 @@
 $event = $data['event'];
 $uid = $_SESSION['uid'];
 $st = getstats($uid,$event['eid']);
+$statusevent = isset($event['statusevent']) ? htmlspecialchars($event['statusevent']) : 'ยังไม่ได้ระบุ';
+
 ?>
 
 <!DOCTYPE html>
@@ -216,6 +218,40 @@ $st = getstats($uid,$event['eid']);
         .dropdown-menu a:hover {
             background-color: #f1f1f1;
         }
+        .button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #555;
+    color: white;
+    transition: background-color 0.3s;
+  }
+
+  .button:hover {
+    background-color: #777;
+  }
+  select[name="status"] {
+        padding: 10px;
+        border-radius: 25px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+        background-color: #f8f8f8;
+        color: #555;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 300px;
+        margin: 10px auto;
+    }
+
+    select[name="status"]:focus {
+        outline: none;
+        border-color: #007BFF;
+        background-color: #e6f2ff;
+        box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+    }
     </style>
 </head>
 
@@ -241,13 +277,29 @@ $st = getstats($uid,$event['eid']);
                 <p><strong>📌วันที่สิ้นสุด:</strong> <?php echo htmlspecialchars($event['date']); ?></p>
                 <p><strong>👥 จำนวนผู้เข้าร่วมสูงสุด:</strong> <?php echo htmlspecialchars($event['max_participants']); ?> คน</p>
                 <p><strong>📝รายละเอียด:</strong> <?php echo nl2br(htmlspecialchars($event['description'])); ?></p>
-                <p><strong>🔵สถานะกิจกรรม:</strong> <?php echo htmlspecialchars($event['statusevent']); ?></p>
+                <p><strong>สถานะกิจกรรม:</strong> <?php echo $statusevent; ?></p>
+
+                <form action="/statusevent" method="post">
+                    <select name="status" required>
+                        <option value="">เลือกสถานะกิจกรรม</option>
+                        <option value="กำลังเริ่ม">กำลังเริ่ม</option>
+                        <option value="เริ่มแล้ว">เริ่มแล้ว</option>
+                        <option value="สิ้นสุดแล้ว">สิ้นสุดแล้ว</option>
+                        <input type="hidden" name="eid" value="<?= $event['eid'] ?>">
+                    </select>
+                    
+                    <button type="submit" class="btn-enroll">อัปเดตสถานะ</button>
+                </form>
             </div>
             <?php if ($event['uid'] == $uid): ?>
                 <form action="/detail" method="post">
                     <input type="hidden" name="uid" value="<?= $event['uid'] ?>">
                     <input type="hidden" name="eid" value="<?= $event['eid'] ?>">
                     <button type="submit" name="enroll" class="btn-enroll">แก้ไขกิจกรรม</button>
+                </form>
+                <form action="/list_event" method="post">
+                <input type="hidden" name="eid" value="<?= $event['eid'] ?>">
+                <button type="submit" name="enroll" class="btn-enroll">ผู้เข้าร่วมกิจกรรม</button>
                 </form>
                 <form action="/genpin" method="post">
                 <?php

@@ -301,4 +301,15 @@ function checkCheckCode($eid) {
     
     return true; 
 }
+function updatestatusevent($eid, $status, $uid) { 
+    $conn = getConnection();
+
+    $sql = "UPDATE event SET statusevent = ? WHERE eid = ? AND uid = ?"; 
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sii", $status, $eid, $uid); 
+    $result = $stmt->execute();
+    $stmt->close();
+    $conn->close();
+    return $result;
+}
 ?>
