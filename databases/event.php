@@ -280,12 +280,12 @@ function getEventNameAndStatusByUid($uid) {
     return $result;
 }
 
-function checkCheckCode($eid) {
+function checkCheckCode($eid, $uid) {
     $conn = getConnection();
 
-    $sql = "SELECT checkcode FROM event WHERE eid = ?";
+    $sql = "SELECT checkcode FROM event_members WHERE eid = ? and uid = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $eid);
+    $stmt->bind_param("ii", $eid ,$uid);
     $stmt->execute();
     $stmt->bind_result($checkCode);
     if ($stmt->fetch()) {

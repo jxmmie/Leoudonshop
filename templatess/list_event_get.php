@@ -101,6 +101,20 @@ $participants = isset($data['participants']) ? $data['participants'] : null;
                                     <button class="action-button" onclick="updateStatus(<?php echo $row['eid']; ?>, <?php echo $row['uid']; ?>, 'ยกเลิก')">ยกเลิก</button>
                                 <?php endif; ?>
                             </td>
+                            <td>
+                            <form action="/genpin" method="post">
+                <?php
+                         if (checkCheckCode($row['eid'],$row['uid'])): ?>
+                               <input type="hidden" name="eid" value="<?= $row['eid'] ?>">
+                              <input type="hidden" name="uid" value="<?= $row['uid'] ?>">
+                              <button type="submit" name="enroll" class="btn-enroll">สร้างรหัสเช็คชื่อ</button>
+                           <?php else: ?>
+                          <input type="hidden" name="eid" value="<?= $row['eid'] ?>">
+                          <input type="hidden" name="uid" value="<?= $row['uid'] ?>">
+                          <button type="submit" name="enroll" class="btn-enroll">สร้างรหัสเช็คชื่อ</button>
+                       <?php endif; ?>
+                </form>
+                            </td>
                         </tr>
                     <?php endwhile; ?>
                 </tbody>

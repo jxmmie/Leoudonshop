@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['eid'])) {
     $participants = getParticipants($eid);
     // ส่งค่า participants ไปยังหน้าที่จะแสดงผล
     
-    renderView('list_event_get', ['participants' => $participants]);
+    renderView('list_event_get', ['participants' => $participants] ,$eid);
     
 }
 ?>

@@ -2,7 +2,7 @@
  $cd = $_POST['cd'];
  $eid = $_POST['eid'];
  $uid = $_POST['uid'];
- if ($cd === getCheckCode($eid)){
+ if ($cd === getCheckCode($eid, $uid)){
     
 
     $status ="เช็คชื่อแล้ว";

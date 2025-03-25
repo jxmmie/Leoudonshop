@@ -301,18 +301,7 @@ $statusevent = isset($event['statusevent']) ? htmlspecialchars($event['statuseve
                 <input type="hidden" name="eid" value="<?= $event['eid'] ?>">
                 <button type="submit" name="enroll" class="btn-enroll">ผู้เข้าร่วมกิจกรรม</button>
                 </form>
-                <form action="/genpin" method="post">
-                <?php
-                $images = getEventImages($event['eid']);
-                if (checkCheckCode($event['eid'])): ?>
-                        <label><?= $_SESSION['code'] ?></label>
-                         <input type="hidden" name="eid" value="<?= $event['eid'] ?>">
-                         <button type="submit" name="enroll" class="btn-enroll">สร้างรหัสเช็คชื่อ</button>
-                <?php else: ?>
-                    <input type="hidden" name="eid" value="<?= $event['eid'] ?>">
-                    <button type="submit" name="enroll" class="btn-enroll">สร้างรหัสเช็คชื่อ</button>
-                <?php endif; ?>
-                </form>
+                
             <?php else: ?>
           
                     <?php if (isMemberExist($uid, $event['eid'])): ?>

@@ -34,7 +34,7 @@ function getParticipants($eid) {
     return $result;
 }
 
-function insertCheckCode($eid) {
+function insertCheckCode($eid, $uid) {
     // สร้างการเชื่อมต่อ
     $conn = getConnection();
     $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -43,10 +43,10 @@ function insertCheckCode($eid) {
         $checkCode .= $characters[random_int(0, strlen($characters) - 1)];
     }
     // SQL เพิ่ม Check Code ลงตาราง event_checkcode
-    $sql = "UPDATE event SET checkcode = ? WHERE eid = ?";
+    $sql = "UPDATE event_members SET checkcode = ? WHERE eid = ?  and uid = ?";
     $stmt = $conn->prepare($sql);
 
-    $stmt->bind_param("si", $checkCode, $eid);
+    $stmt->bind_param("sii", $checkCode, $eid, $uid);
     $stmt->execute();
     $stmt->close();
     $conn->close();
@@ -82,13 +82,13 @@ function getstats($uid, $eid) {
 }
 
 
-function getCheckCode($eid) {
+function getCheckCode($eid, $uid) {
     // สร้างการเชื่อมต่อ
     $conn = getConnection();
     // เตรียมคำสั่ง SQL
-    $sql = "SELECT checkcode FROM event WHERE eid = ?";
+    $sql = "SELECT checkcode FROM event_members WHERE eid = ? and uid = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $eid);
+    $stmt->bind_param("ii", $eid, $uid);
     $stmt->execute();
     
     // ดึงผลลัพธ์
