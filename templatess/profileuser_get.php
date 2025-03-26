@@ -1,3 +1,27 @@
+<?php
+
+if (!isset($_SESSION['uid'])) {
+    echo "กรุณาเข้าสู่ระบบ";
+    exit;
+}
+
+
+
+$uid = $_SESSION['uid'];
+$user = getUserDetailsById($uid);
+
+if (!$user) {
+    echo "ไม่พบข้อมูลผู้ใช้";
+    exit;
+}
+
+// ดึงค่าจากอาร์เรย์ และใช้ htmlspecialchars() ป้องกัน XSS
+$firstname = htmlspecialchars($user['f_name']);
+$lastname =  htmlspecialchars($user['l_name']);
+$email = htmlspecialchars($user['email']);
+$gender = htmlspecialchars($user['gender']);
+?>
+
 <!DOCTYPE html>
 <html lang="th">
 
@@ -18,53 +42,12 @@
         }
 
         .container {
-            display: flex;
             background-color: #9e9e9e;
             width: 80%;
-            max-width: 900px;
+            max-width: 500px;
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            align-items: center;
-        }
-
-        .profile-header {
-            width: 40%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            padding-right: 30px;
-        }
-
-        .profile-header img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 4px solid #555;
-            object-fit: cover;
-            margin-bottom: 15px;
-        }
-
-        .upload-button {
-            display: inline-block;
-            background-color: #555;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .upload-button:hover {
-            background-color: #444;
-        }
-
-        .profile-details {
-            width: 60%;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
         }
 
         .form-group {
@@ -72,20 +55,17 @@
             padding: 10px;
             border-radius: 5px;
             color: #f1f1f1;
+            margin-bottom: 10px;
         }
 
         .form-group label {
-            display: block;
             font-weight: bold;
-            margin-bottom: 5px;
             color: #ffcc00;
-            /* สีหัวข้อ */
         }
 
         .form-group div {
             font-size: 16px;
             color: #d3d3d3;
-            /* สีข้อความ */
         }
 
         .back-button {
@@ -96,78 +76,44 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
+            margin-top: 15px;
+            display: block;
+            width: 100%;
+            text-align: center;
         }
 
         .back-button:hover {
             background-color: #555;
-        }
-
-        .dropdown-container {
-            position: relative;
-        }
-
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-            z-index: 1;
-            right: 0;
-            top: 100%;
-        }
-
-        .dropdown-container:hover .dropdown-menu {
-            display: block;
-        }
-
-        .dropdown-menu a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-        .dropdown-menu a:hover {
-            background-color: #f1f1f1;
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <!-- <div class="profile-header">
-            <img src="profile.jpg" alt="">
-            <label for="uploadProfile" class="upload-button">อัปโหลดโปรไฟล์</label>
-            <input type="file" id="uploadProfile" accept="image/*" hidden>
-        </div> -->
-        <div class="profile-details">
-            <div class="form-group">
-                <label>ชื่อ</label>
-                <div>ธิวากร</div>
-            </div>
-            <div class="form-group">
-                <label>นามสกุล</label>
-                <div>จำปาบุรี</div>
-            </div>
-            <div class="form-group">
-                <label>รหัส UID</label>
-                <div>1234567890</div>
-            </div>
-            <div class="form-group">
-                <label>เพศ</label>
-                <div>ชาย</div>
-            </div>
-            <div class="form-group">
-                <label>อีเมล</label>
-                <div>your-email@example.com</div>
-            </div>
+        <h2 style="text-align: center;">ข้อมูลโปรไฟล์</h2>
+        <div class="form-group">
+            <label>ชื่อ</label>
+            <div><?php echo $firstname; ?></div>
         </div>
+        <div class="form-group">
+            <label>นามสกุล</label>
+            <div><?php echo $lastname; ?></div>
+        </div>
+        <div class="form-group">
+            <label>รหัส UID</label>
+            <div><?php echo $uid; ?></div>
+        </div>
+        <div class="form-group">
+            <label>เพศ</label>
+            <div><?php echo $gender; ?></div>
+        </div>
+        <div class="form-group">
+            <label>อีเมล</label>
+            <div><?php echo $email; ?></div>
+        </div>
+        <button class="back-button" onclick="window.history.back();">ย้อนกลับ</button>
     </div>
-    <button class="back-button" onclick="window.history.back();">ย้อนกลับ</button>
+    
 </body>
 
 </html>

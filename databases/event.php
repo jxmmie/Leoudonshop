@@ -312,4 +312,26 @@ function updatestatusevent($eid, $status, $uid) {
     $conn->close();
     return $result;
 }
+function getUserDetailsById($user_id) {
+    $conn = getConnection();
+    $sql = "SELECT uid, f_name,l_name, email, gender FROM user WHERE uid = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $user = $result->fetch_assoc();
+    $stmt->close();
+    $conn->close();
+    return $user;
+}
+function updateUserName($user_id, $firstname, $lastname) {
+    $conn = getConnection();
+    $sql = "UPDATE user SET f_name = ?, l_name = ? WHERE uid = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssi", $firstname, $lastname, $user_id);
+    $result = $stmt->execute();
+    $stmt->close();
+    $conn->close();
+    return $result;
+}
 ?>
