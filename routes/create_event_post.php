@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $description = isset($_POST['activityDetails']) ? trim($_POST['activityDetails']) : '';
     $date = isset($_POST['date']) ? $_POST['date'] : '';
     $files = isset($_FILES['images']) ? $_FILES['images'] : null;
-    $statusevent = "active";
+    $statusevent = "ยังไม่เริ่ม";
     // ตรวจสอบข้อมูลที่จำเป็น
     if (empty($eventname) || empty($max_participants) || empty($description) || empty($date)) {
         // ถ้าข้อมูลที่จำเป็นไม่ครบ ให้แสดงข้อความแจ้งเตือน
