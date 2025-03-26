@@ -124,11 +124,18 @@ $statusevent = isset($event['statusevent']) ? htmlspecialchars($event['statuseve
             left: 100%;
         }
 
-        .btn-enroll {
+        .button-group {
+            display: flex;
+            flex-direction: column; /* จัดเรียงปุ่มในแนวตั้ง */
+            align-items: center; /* จัดกึ่งกลางปุ่ม */
+            margin-top: 15px;
+        }
+
+        .btn-enroll,
+        .hidden-button,
+        .button {
             display: inline-block;
             padding: 12px 30px;
-            background-color: #28a745;
-            color: white;
             font-size: 18px;
             font-weight: bold;
             text-decoration: none;
@@ -140,18 +147,22 @@ $statusevent = isset($event['statusevent']) ? htmlspecialchars($event['statuseve
             margin-top: 10px;
             position: relative;
             overflow: hidden;
+            width: fit-content; /* ทำให้ปุ่มปรับขนาดตามเนื้อหา */
+        }
+
+        .btn-enroll {
+            background-color: #28a745;
+            color: white;
         }
 
         .btn-enroll:hover {
             background-color: #218838;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
             transform: translateY(-5px);
-            /* เด้งขึ้นเล็กน้อย */
         }
 
         .btn-enroll:active {
             transform: translateY(0);
-            /* กลับสู่ตำแหน่งเดิมเมื่อคลิก */
         }
 
         .btn-enroll::before {
@@ -176,82 +187,57 @@ $statusevent = isset($event['statusevent']) ? htmlspecialchars($event['statuseve
             background-color: transparent;
             border: 1px solid rgba(0, 0, 0, 0.3);
             color: rgba(0, 0, 0, 0.5);
-            display: inline-block;
-            padding: 12px 30px;
-            background-color: #28a745;
-            color: white;
-            font-size: 18px;
-            font-weight: bold;
-            text-decoration: none;
-            border-radius: 50px;
-            border: none;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-            margin-top: 10px;
         }
 
-        .dropdown-container {
-            position: relative;
-        }
-
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-            z-index: 1;
-            right: 0;
-            top: 100%;
-        }
-
-        .dropdown-container:hover .dropdown-menu {
-            display: block;
-        }
-
-        .dropdown-menu a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-        .dropdown-menu a:hover {
-            background-color: #f1f1f1;
-        }
         .button {
-    padding: 10px 20px;
-    margin: 5px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: #555;
-    color: white;
-    transition: background-color 0.3s;
-  }
+            background-color: #555;
+            color: white;
+        }
 
-  .button:hover {
-    background-color: #777;
-  }
-  select[name="status"] {
-        padding: 10px;
-        border-radius: 25px;
-        border: 1px solid #ccc;
-        font-size: 16px;
-        background-color: #f8f8f8;
-        color: #555;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        width: 100%;
-        max-width: 300px;
-        margin: 10px auto;
-    }
+        .button:hover {
+            background-color: #777;
+        }
 
-    select[name="status"]:focus {
-        outline: none;
-        border-color: #007BFF;
-        background-color: #e6f2ff;
-        box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
-    }
+        select[name="status"] {
+            padding: 10px;
+            border-radius: 25px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            background-color: #f8f8f8;
+            color: #555;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 300px;
+            margin: 10px auto;
+        }
+
+        select[name="status"]:focus {
+            outline: none;
+            border-color: #007BFF;
+            background-color: #e6f2ff;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+        }
+
+        .checkin-form {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .checkin-form input[type="text"] {
+            padding: 10px;
+            border-radius: 25px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            margin-bottom: 10px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .checkin-form button[type="submit"] {
+            width: 100%;
+            max-width: 300px;
+        }
     </style>
 </head>
 
@@ -279,54 +265,53 @@ $statusevent = isset($event['statusevent']) ? htmlspecialchars($event['statuseve
                 <p><strong>📝รายละเอียด:</strong> <?php echo nl2br(htmlspecialchars($event['description'])); ?></p>
                 <p><strong>สถานะกิจกรรม:</strong> <?php echo $statusevent; ?></p>
 
-                <form action="/statusevent" method="post">
-                    <select name="status" required>
-                        <option value="">เลือกสถานะกิจกรรม</option>
-                        <option value="กำลังเริ่ม">กำลังเริ่ม</option>
-                        <option value="เริ่มแล้ว">เริ่มแล้ว</option>
-                        <option value="สิ้นสุดแล้ว">สิ้นสุดแล้ว</option>
-                        <input type="hidden" name="eid" value="<?= $event['eid'] ?>">
-                    </select>
-                    
-                    <button type="submit" class="btn-enroll">อัปเดตสถานะ</button>
-                </form>
-            </div>
-            <?php if ($event['uid'] == $uid): ?>
-                <form action="/detail" method="post">
-                    <input type="hidden" name="uid" value="<?= $event['uid'] ?>">
-                    <input type="hidden" name="eid" value="<?= $event['eid'] ?>">
-                    <button type="submit" name="enroll" class="btn-enroll">แก้ไขกิจกรรม</button>
-                </form>
-                <form action="/list_event" method="post">
-                <input type="hidden" name="eid" value="<?= $event['eid'] ?>">
-                <button type="submit" name="enroll" class="btn-enroll">ผู้เข้าร่วมกิจกรรม</button>
-                </form>
-                
-            <?php else: ?>
-          
-                    <?php if (isMemberExist($uid, $event['eid'])): ?>
-                        <button type="button" class="hidden-button">เข้าร่วมกิจกรรม</button>
-                        <?php if ($st == "อนุมัติ"): ?>
-                                    <form action="/checkin" method="post">
-                                    <input type="hidden" name="uid" value="<?= $uid ?>">
-                                     <input type="hidden" name="eid" value="<?= $event['eid'] ?>">
-                                     <input type="text" name="cd" >
-                                     <button type="submit" name="enroll" class="btn-enroll">เช็คชื่อ</button>
-                                     </form> 
-                         <?php elseif($st == "รอดำเนินการ"): ?>
-                            <button type="button" class="hidden-button">รอดำเนินการ</button>
-                            <?php else: ?>
-                                <button type="button" class="hidden-button">เช็คชื่อแล้ว</button>
-                        <?php endif; ?>
+                <div class="button-group">
+                    <?php if ($event['uid'] == $uid): ?>
+                        <form action="/statusevent" method="post" style="width: 100%; max-width: 300px;">
+                            <select name="status" required style="width: 100%; margin-bottom: 10px;">
+                                <option value="">เลือกสถานะกิจกรรม</option>
+                                <option value="กำลังเริ่ม" <?php if ($statusevent == 'กำลังเริ่ม') echo 'selected'; ?>>กำลังเริ่ม</option>
+                                <option value="เริ่มแล้ว" <?php if ($statusevent == 'เริ่มแล้ว') echo 'selected'; ?>>เริ่มแล้ว</option>
+                                <option value="สิ้นสุดแล้ว" <?php if ($statusevent == 'สิ้นสุดแล้ว') echo 'selected'; ?>>สิ้นสุดแล้ว</option>
+                                <input type="hidden" name="eid" value="<?= $event['eid'] ?>">
+                            </select>
+                            <button type="submit" class="btn-enroll" style="width: 100%;">อัปเดตสถานะ</button>
+                        </form>
+                        <form action="/detail" method="post" style="width: 100%; max-width: 300px;">
+                            <input type="hidden" name="uid" value="<?= $event['uid'] ?>">
+                            <input type="hidden" name="eid" value="<?= $event['eid'] ?>">
+                            <button type="submit" name="enroll" class="btn-enroll" style="width: 100%;">แก้ไขกิจกรรม</button>
+                        </form>
+                        <form action="/list_event" method="post" style="width: 100%; max-width: 300px;">
+                            <input type="hidden" name="eid" value="<?= $event['eid'] ?>">
+                            <button type="submit" name="enroll" class="btn-enroll" style="width: 100%;">ผู้เข้าร่วมกิจกรรม</button>
+                        </form>
                     <?php else: ?>
-                        <form action="/detail" method="post">
-                    <input type="hidden" name="uid" value="<?= $uid ?>">
-                    <input type="hidden" name="eid" value="<?= $event['eid'] ?>">
-                        <button type="submit" name="enroll" class="btn-enroll">เข้าร่วมกิจกรรม</button>
+                        <?php if (isMemberExist($uid, $event['eid'])): ?>
+                            <button type="button" class="hidden-button" style="width: 100%; max-width: 300px;">เข้าร่วมกิจกรรม</button>
+                            <?php if ($st == "อนุมัติ"): ?>
+                                <form action="/checkin" method="post" class="checkin-form" style="width: 100%; max-width: 300px;">
+                                    <input type="hidden" name="uid" value="<?= $uid ?>">
+                                    <input type="hidden" name="eid" value="<?= $event['eid'] ?>">
+                                    <input type="text" name="cd" placeholder="รหัสเช็คชื่อ">
+                                    <button type="submit" name="enroll" class="btn-enroll" style="width: 100%;">เช็คชื่อ</button>
+                                </form>
+                            <?php elseif($st == "รอดำเนินการ"): ?>
+                                <button type="button" class="hidden-button" style="width: 100%; max-width: 300px;">รอดำเนินการ</button>
+                            <?php else: ?>
+                                <button type="button" class="hidden-button" style="width: 100%; max-width: 300px;">เช็คชื่อแล้ว</button>
+                            <?php endif; ?>
+                        <?php else: ?>
+                            <form action="/detail" method="post" style="width: 100%; max-width: 300px;">
+                                <input type="hidden" name="uid" value="<?= $uid ?>">
+                                <input type="hidden" name="eid" value="<?= $event['eid'] ?>">
+                                <button type="submit" name="enroll" class="btn-enroll" style="width: 100%;">เข้าร่วมกิจกรรม</button>
+                            </form>
+                        <?php endif; ?>
                     <?php endif; ?>
-                </form>
-            <?php endif; ?>
-            <a href="/event" class="back-link"><i class="fas fa-arrow-left"></i> กลับไปยังรายการกิจกรรม</a>
+                </div>
+                <a href="/event" class="back-link"><i class="fas fa-arrow-left"></i> กลับไปยังรายการกิจกรรม</a>
+            </div>
         </div>
     </div>
 </body>
