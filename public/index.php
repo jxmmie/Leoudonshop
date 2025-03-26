@@ -8,6 +8,7 @@ const ROUTE_DIR = __DIR__ . '/../routes';
 const TEMPLATES_DIR = __DIR__ . '/../templatess';
 const DATABASE_DIR = __DIR__ . '/../databases';
 const UPLOADS_DIR = __DIR__ . '/../uploads';
+const MAIL_DIR = __DIR__ . '/../phpmailer';
 
 session_start();
 
@@ -16,7 +17,7 @@ require_once INCLUDES_DIR . '/router.php';
 require_once INCLUDES_DIR . '/view.php';
 require_once INCLUDES_DIR . '/db.php';
 
-
 // Call dispatch to handle requests
 const PUBLIC_ROUTES = ['/', '/home'];
 dispatch($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
+ 

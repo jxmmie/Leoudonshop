@@ -1,6 +1,8 @@
 <?php
 // ตรวจสอบว่ามีข้อมูลจาก Controller หรือไม่
 $participants = isset($data['participants']) ? $data['participants'] : null;
+
+
 ?>
 
 <!DOCTYPE html>
@@ -84,10 +86,13 @@ $participants = isset($data['participants']) ? $data['participants'] : null;
                         <th>วันที่เข้าร่วม</th>
                         <th>สถานะ</th>
                         <th>การกระทำ</th>
+                        <th>สร้างรหัสเช็คชื่อ</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php while ($row = $participants->fetch_assoc()): ?>
+                       
+                    
                         <tr>
                             <td><?php echo htmlspecialchars($row['f_name']); ?></td>
                             <td><?php echo htmlspecialchars($row['l_name']); ?></td>
@@ -103,16 +108,20 @@ $participants = isset($data['participants']) ? $data['participants'] : null;
                             </td>
                             <td>
                             <form action="/genpin" method="post">
-                <?php
-                         if (checkCheckCode($row['eid'],$row['uid'])): ?>
+                            <?php if ($row['status'] === "อนุมัติ"): ?>
+                                <?php if (checkCheckCode($row['eid'],$row['uid'])): ?>
                                <input type="hidden" name="eid" value="<?= $row['eid'] ?>">
                               <input type="hidden" name="uid" value="<?= $row['uid'] ?>">
                               <button type="submit" name="enroll" class="btn-enroll">สร้างรหัสเช็คชื่อ</button>
-                           <?php else: ?>
-                          <input type="hidden" name="eid" value="<?= $row['eid'] ?>">
-                          <input type="hidden" name="uid" value="<?= $row['uid'] ?>">
-                          <button type="submit" name="enroll" class="btn-enroll">สร้างรหัสเช็คชื่อ</button>
+                                <?php else: ?>
+                                 <input type="hidden" name="eid" value="<?= $row['eid'] ?>">
+                                  <input type="hidden" name="uid" value="<?= $row['uid'] ?>">
+                               <button type="submit" name="enroll" class="btn-enroll">สร้างรหัสเช็คชื่อใหม่</button>
                        <?php endif; ?>
+                           <?php else: ?>
+                            <label for="ff"> ไม่สามารถสร้างได้ </label>
+                       <?php endif; ?>
+             
                 </form>
                             </td>
                         </tr>

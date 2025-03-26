@@ -77,5 +77,22 @@ function getUserById($uid) {
     return $result->fetch_assoc();
 }
 
+function getEmailById($uid) {
+    $conn = getConnection();
+    $sql = "SELECT email FROM user WHERE uid = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $uid);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    // ใช้ fetch_assoc() เพื่อแปลงผลลัพธ์เป็นอาร์เรย์
+    $row = $result->fetch_assoc();
+
+    // คืนค่าผลลัพธ์
+    return $row;
+}
+
+
+
 
 
