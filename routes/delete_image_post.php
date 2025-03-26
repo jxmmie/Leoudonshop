@@ -12,6 +12,7 @@ if (isset($_POST['image_path'])) {
     } else {
         // If there was an error, display the message
         echo $message;
+        echo "<script> window.location.href='/edit_event';</script>";
     }
 }
 

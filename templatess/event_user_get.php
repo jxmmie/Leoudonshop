@@ -130,15 +130,34 @@ $events = getUserEvents($uid);
     background-color: #555;
 }
 </style>
+<!DOCTYPE html>
+<html>
+  
+<head>
+<title>กิจกรรมของฉัน</title>
+<style>
+  /* สไตล์ต่างๆ ที่คุณใส่ไว้ตามเดิม */
+  /* ... */
+</style>
 </head>
 <body>
     <div class="grid-container">
         <?php if (!empty($events)): ?>
             <?php foreach ($events as $event): ?>
-              <div class="grid-item" onclick="window.location.href='/edit_event?eid=<?php echo htmlspecialchars($event['eid']); ?>';">
-    <h3><?php echo htmlspecialchars($event['eventname']); ?></h3>
-</div>  
+              <form method="POST" action="/event_user">
+            <input type="hidden" name="event_name" value="<?php echo htmlspecialchars($event['eventname']); ?>">
+            <input type="hidden" name="eid" value="<?php echo htmlspecialchars($event['eid']); ?>">
+            <button type="submit" class="grid-item">
+                <?php
+                $images = getEventImages($event['eid']);
+                // ตรวจสอบว่า $images มีข้อมูลและมีอย่างน้อย 1 รูป
+                if (!empty($images) && isset($images[0])): ?>
+                    <img src="<?php echo htmlspecialchars($images[0]); ?>" alt="Event Image">     
+                <?php endif; ?>
 
+                <h3><?php echo htmlspecialchars($event['eventname']); ?></h3>
+            </button>
+        </form>
             <?php endforeach; ?>
         <?php else: ?>
             <p>ไม่มีข้อมูลกิจกรรม</p>

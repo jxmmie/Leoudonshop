@@ -58,5 +58,5 @@ if ($result) {
 }
 
 // Redirect to list_event page
-// echo "<script>alert('สร้างรหัสแล้ว!'); window.location.href='/list_event';</script>";
+echo "<script>alert('สร้างรหัสแล้ว!'); window.location.href='/list_event';</script>";
 ?>
