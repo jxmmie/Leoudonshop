@@ -1,6 +1,6 @@
 <?php
 // ตรวจสอบว่ามีการส่งค่า event_name มาหรือไม่
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
     // รับข้อมูลจากฟอร์ม
     $_SESSION['uidget'] = $_POST['uid'];
     $_SESSION['eidget'] = $_POST['eid'];
@@ -20,5 +20,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     
     
-}
 ?>
