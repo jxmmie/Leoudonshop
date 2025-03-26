@@ -324,11 +324,12 @@ function getUserDetailsById($user_id) {
     $conn->close();
     return $user;
 }
-function updateUserName($user_id, $firstname, $lastname) {
+
+function updateUserProfile($uid, $firstname, $lastname, $email) {
     $conn = getConnection();
-    $sql = "UPDATE user SET f_name = ?, l_name = ? WHERE uid = ?";
+    $sql = "UPDATE user SET f_name = ?, l_name = ?, email = ? WHERE uid = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssi", $firstname, $lastname, $user_id);
+    $stmt->bind_param("sssi",$firstname, $lastname,$email, $uid);
     $result = $stmt->execute();
     $stmt->close();
     $conn->close();

@@ -1,11 +1,10 @@
 <?php
 
+
 if (!isset($_SESSION['uid'])) {
     echo "กรุณาเข้าสู่ระบบ";
     exit;
 }
-
-
 
 $uid = $_SESSION['uid'];
 $user = getUserDetailsById($uid);
@@ -17,9 +16,13 @@ if (!$user) {
 
 // ดึงค่าจากอาร์เรย์ และใช้ htmlspecialchars() ป้องกัน XSS
 $firstname = htmlspecialchars($user['f_name']);
-$lastname =  htmlspecialchars($user['l_name']);
+$lastname = htmlspecialchars($user['l_name']);
 $email = htmlspecialchars($user['email']);
-$gender = htmlspecialchars($user['gender']);
+
+
+// อัปเดตข้อมูลในฐานข้อมูลหากส่งฟอร์ม
+
+
 ?>
 
 <!DOCTYPE html>
@@ -63,9 +66,31 @@ $gender = htmlspecialchars($user['gender']);
             color: #ffcc00;
         }
 
-        .form-group div {
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .save-button {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
             font-size: 16px;
-            color: #d3d3d3;
+            margin-top: 15px;
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
+
+        .save-button:hover {
+            background-color: #0056b3;
         }
 
         .back-button {
@@ -85,53 +110,29 @@ $gender = htmlspecialchars($user['gender']);
         .back-button:hover {
             background-color: #555;
         }
-        .edit-button {
-    background-color: #007bff;
-    color: white;
-    padding: 15px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: 15px;
-    display: block;
-    width: 100%;
-    text-align: center;
-}
-
-.edit-button:hover {
-    background-color: #0056b3;
-}
     </style>
 </head>
 
 <body>
     <div class="container">
         <h2 style="text-align: center;">ข้อมูลโปรไฟล์</h2>
-        <div class="form-group">
-            <label>ชื่อ</label>
-            <div><?php echo $firstname; ?></div>
-        </div>
-        <div class="form-group">
-            <label>นามสกุล</label>
-            <div><?php echo $lastname; ?></div>
-        </div>
-        <div class="form-group">
-            <label>รหัส UID</label>
-            <div><?php echo $uid; ?></div>
-        </div>
-        <div class="form-group">
-            <label>เพศ</label>
-            <div><?php echo $gender; ?></div>
-        </div>
-        <div class="form-group">
-            <label>อีเมล</label>
-            <div><?php echo $email; ?></div>
-        </div>
-        <button class="edit-button" onclick="location.href='/editprofileuser';">แก้ไขข้อมูล</button>
+        <form method="post" action="/editprofileuser">
+            <div class="form-group">
+                <label>ชื่อ</label>
+                <input type="text" name="f_name" value="<?php echo $firstname; ?>" required>
+            </div>
+            <div class="form-group">
+                <label>นามสกุล</label>
+                <input type="text" name="l_name" value="<?php echo $lastname; ?>" required>
+            </div>
+            <div class="form-group">
+                <label>อีเมล</label>
+                <input type="email" name="email" value="<?php echo $email; ?>" required>
+            </div>
+            <button type="submit" class="save-button">บันทึก</button>
+        </form>
         <button class="back-button" onclick="window.history.back();">ย้อนกลับ</button>
     </div>
-    
 </body>
 
 </html>

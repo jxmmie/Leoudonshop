@@ -75,7 +75,7 @@ $event = $data['event'];
   }
 
   .button {
-    padding: 10px 20px;
+    padding: 12px 25px; /* เพิ่ม padding ให้ใหญ่ขึ้น */
     margin: 5px;
     border: none;
     border-radius: 5px;
@@ -83,6 +83,7 @@ $event = $data['event'];
     background-color: #555;
     color: white;
     transition: background-color 0.3s;
+    font-size: 16px; /* เพิ่มขนาดตัวอักษร */
   }
 
   .button:hover {
@@ -119,18 +120,23 @@ $event = $data['event'];
   .delete-button {
     background-color: red;
     color: white;
-    padding: 10px 20px;
+    padding: 8px 15px; /* ลด padding ให้เล็กลง */
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 14px; /* ลดขนาดตัวอักษร */
     margin-top: 20px;
-    width: 40%;
+    width: auto; /* ปรับความกว้างให้เหมาะสมกับข้อความ */
     transition: background-color 0.3s;
   }
 
   .delete-button:hover {
     background-color: darkred;
+  }
+
+  /* จัดตำแหน่งปุ่มบันทึก */
+  .save-button-container {
+    margin-top: 20px;
   }
 </style>
 </head>
@@ -141,16 +147,16 @@ $event = $data['event'];
     <div class="image-upload-box">
       <?php
       $images = getEventImages($event['eid']);
-      if (!empty($images)): 
-          foreach ($images as $image): ?>
-              <img src="<?php echo htmlspecialchars($image); ?>" alt="Event Image">
-              <form action="/delete_image" method="post">
-                  <input type="hidden" name="image_path" value="<?php echo htmlspecialchars($image); ?>">
-                  <button type="submit" name="delete_image" class="button">ลบรูปภาพ</button>
-              </form>
-          <?php endforeach; 
+      if (!empty($images)):
+        foreach ($images as $image): ?>
+          <img src="<?php echo htmlspecialchars($image); ?>" alt="Event Image">
+          <form action="/delete_image" method="post">
+            <input type="hidden" name="image_path" value="<?php echo htmlspecialchars($image); ?>">
+            <button type="submit" name="delete_image" class="button">ลบรูปภาพ</button>
+          </form>
+        <?php endforeach;
       else: ?>
-          <p>📷 ไม่มีรูปภาพกิจกรรม</p>
+        <p>📷 ไม่มีรูปภาพกิจกรรม</p>
       <?php endif; ?>
     </div>
   </div>
@@ -182,10 +188,11 @@ $event = $data['event'];
         <label for="date">วัน/เดือน/ปี ที่สิ้นสุด</label>
         <input type="date" id="date" name="date" value="<?php echo $date; ?>">
       </div>
-      <button class="button" type="submit">บันทึกการแก้ไข</button>
+      <div class="save-button-container">
+        <button class="button" type="submit">บันทึกการแก้ไข</button>
+      </div>
     </form>
 
-   
 
     <form action="/delete_event" method="post" onsubmit="return confirm('คุณแน่ใจหรือไม่ว่าต้องการลบกิจกรรมนี้?');">
       <input type="hidden" name="eid" value="<?php echo $event['eid']; ?>">
